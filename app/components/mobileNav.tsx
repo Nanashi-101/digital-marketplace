@@ -3,9 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
-    LoginLink,
-    LogoutLink,
-    RegisterLink,
+  LoginLink,
+  RegisterLink
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Menu } from "lucide-react";
@@ -32,11 +31,9 @@ async function MobileNav() {
             </Link>
           ))}
           {user ? (
-            <Button className="max-w-[70%] w-[300px] mx-auto">
-              <LogoutLink>Log out</LogoutLink>
-            </Button>
+            <></>
           ) : (
-            <div className="hidden md:flex gap-x-2">
+            <div className="flex gap-x-2 justify-center">
               <Button variant={"outline"} asChild>
                 <LoginLink>Log in</LoginLink>
               </Button>

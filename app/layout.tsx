@@ -36,7 +36,7 @@ const pacifico = Pacifico({
 const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-roboto",
-  weight: "400",
+  weight: "700",
 });
 
 export const metadata: Metadata = {
