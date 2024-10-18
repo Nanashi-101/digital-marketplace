@@ -1,9 +1,15 @@
-// This is the rich editor that we are creating to use in our application. We are using the tiptap library to create this editor. We have created a simple toolbar with a button to add a heading to the editor.
+/* eslint-disable @typescript-eslint/no-explicit-any */
+//* This is the rich editor that we are creating to use in our application. We are using the tiptap library to create this editor. We have created a simple toolbar with a button to add a heading to the editor.
 
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { EditorContent, useEditor, type Editor } from "@tiptap/react"; // Import the useEditor hook from the tiptap library
+import {
+  EditorContent,
+  JSONContent,
+  useEditor,
+  type Editor,
+} from "@tiptap/react"; // Import the useEditor hook from the tiptap library
 import StarterKit from "@tiptap/starter-kit"; // Import the StarterKit extension from the tiptap library
 
 export const MenuBar = ({ editor }: { editor: Editor | null }) => {
@@ -43,9 +49,7 @@ export const MenuBar = ({ editor }: { editor: Editor | null }) => {
       <Button
         type="button"
         onClick={() => editor.chain().focus().toggleBold().run()} // Add a heading to the editor. This is the process of adding a heading to the editor through tiptap
-        variant={
-          editor.isActive("bold") ? "default" : "secondary"
-        }
+        variant={editor.isActive("bold") ? "default" : "secondary"}
         className="font-medium"
       >
         B
@@ -53,9 +57,7 @@ export const MenuBar = ({ editor }: { editor: Editor | null }) => {
       <Button
         type="button"
         onClick={() => editor.chain().focus().toggleItalic().run()} // Add a heading to the editor. This is the process of adding a heading to the editor through tiptap
-        variant={
-          editor.isActive("italic") ? "default" : "secondary"
-        }
+        variant={editor.isActive("italic") ? "default" : "secondary"}
         className="font-medium italic roboto font-mono"
       >
         I
@@ -65,21 +67,33 @@ export const MenuBar = ({ editor }: { editor: Editor | null }) => {
 };
 
 //  Create a TipTapEditor component that uses the useEditor hook to create an editor with the StarterKit extension
-export function TipTapEditor() {
+export function TipTapEditor({
+  setJson,
+  json,
+}: {
+  setJson: any;
+  json: JSONContent | null;
+}) {
   const editor = useEditor({
     extensions: [StarterKit],
-    content: "<p>Here goes your Description....</p>",
-    editorProps:{
-        attributes: {
-            class: "focus:outline-none min-h-[150px] prose prose-sm sm:prose-base"
-        }
+    content: json,
+    editorProps: {
+      attributes: {
+        class: "focus:outline-none min-h-[150px] prose prose-sm sm:prose-base",
+      },
+    },
+    onUpdate: ({ editor }) => {
+      setJson(editor.getJSON());
     }
   });
 
   return (
     <div className="">
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} className="rounded-lg border p-2 min-h-[150px] mt-2"/>
+      <EditorContent
+        editor={editor}
+        className="rounded-lg border p-2 min-h-[150px] mt-2"
+      />
     </div>
   );
 }

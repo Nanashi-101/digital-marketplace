@@ -3,6 +3,10 @@ import localFont from "next/font/local";
 import { Varela_Round, M_PLUS_Rounded_1c, Pacifico, Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
+import { Toaster } from "@/components/ui/sonner";
 
 
 const geistSans = localFont({
@@ -51,11 +55,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <NextSSRPlugin
+        routerConfig={extractRouterConfig(ourFileRouter)}
+      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${varelaRound.variable} ${MPlusRound.variable} ${pacifico.variable} ${roboto.variable} antialiased`}
       >
         <Navbar />
         {children}
+        <Toaster richColors theme="light" closeButton/>
       </body>
     </html>
   );
