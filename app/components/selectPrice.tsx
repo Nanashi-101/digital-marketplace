@@ -24,13 +24,16 @@ function SelectPrice() {
         placeholder="Enter the price of your product"
         className="col-span-2"
         onChange={(e) => setPrice(Number(e.target.value))}
+        required
+        minLength={1}
       />
       <input type="hidden" name="currency" value={currency} />
-      <Select onValueChange={value => setCurrency(value)} defaultValue={currency}>
+      <Select
+        onValueChange={(value) => setCurrency(value)}
+        defaultValue={currency}
+      >
         <SelectTrigger>
-          <SelectValue
-            placeholder="Currency"
-          />
+          <SelectValue placeholder="Currency" />
         </SelectTrigger>
         <SelectContent align="center">
           <SelectItem value="PLN">PLN</SelectItem>

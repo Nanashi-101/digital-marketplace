@@ -23,30 +23,35 @@ import { UploadDropzone } from "../lib/uploadThing";
 import { useFormState } from "react-dom";
 import { SellProduct, State } from "../actions";
 import { toast } from "sonner";
+import {ButtonFull} from "../components/SubmitButton";
+import { redirect } from "next/navigation";
 
 function SellRoute() {
-  const initialState: State = {message: '', status: undefined}
-  const [state, formAction] = useFormState(SellProduct, initialState)
+  const initialState: State = { message: "", status: undefined };
+  const [state, formAction] = useFormState(SellProduct, initialState);
   const [json, setJson] = React.useState<JSONContent | null>(null);
   const [images, setImages] = React.useState<string[] | null>(null);
-  const [files, setFiles] = React.useState<string | null>(null);
+  const [file, setFile] = React.useState<string | null>(null);
 
   useEffect(() => {
-    if(state.status === 'success') {
+    if (state.status === "success") {
       toast.success(state.message);
-    }
-    else if(state.status === 'error') {
+      redirect("/");
+    } else if (state.status === "error") {
       toast.error(state.message);
     }
-  },[state])
+  }, [state]);
   return (
-    <section className="max-w-5xl mx-auto px-4 md:px-8 md:mb-16">
-      <Card className="border-primary shadow-xl shadow-[#f9802d]/20">
+    <section className="max-w-7xl mx-auto px-4 md:px-8 md:mb-16">
+      <Card className="shadow-2xl shadow-[#f9802d]/20 p-2">
         <form action={formAction}>
           <CardHeader>
-            <CardTitle>Select your product:</CardTitle>
-            <CardDescription>
-              Describe your product in the nest way you can.
+            <CardTitle className="text-4xl font-semibold tracking-norma; roboto">
+              Create Your Perfect Product Today!
+            </CardTitle>
+            <CardDescription className="text-xl tracking-tight leading-none roboto">
+              Create your custom product and bring your ideas to life with just
+              a few clicks!
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-y-10">
@@ -56,6 +61,8 @@ function SellRoute() {
                 name="title"
                 type="text"
                 placeholder="Enter the title of your product"
+                required
+                minLength={3}
               />
               {state?.errors?.["name"]?.[0] && (
                 <p className="text-destructive font-medium text-sm first-letter:uppercase">
@@ -86,6 +93,8 @@ function SellRoute() {
               <Textarea
                 placeholder="Please describe your product"
                 name="smallDescription"
+                required
+                minLength={10}
               />
               {state?.errors?.["smallDescription"]?.[0] && (
                 <p className="text-destructive font-medium text-sm first-letter:uppercase">
@@ -130,14 +139,28 @@ function SellRoute() {
                 </p>
               )}
             </div>
+            <div className="flex flex-col gap-y-2">
+              <input type="hidden" name="file" value={file ?? ""} />
+              <Label className="text-lg">Product Image:</Label>
+              <UploadDropzone
+                endpoint="productFileUploader"
+                onClientUploadComplete={(res) => {
+                  setFile(res[0].url);
+                  toast.success("Your Product file has been uploaded!");
+                }}
+                onUploadError={(error: Error) => {
+                  toast.error("File upload failed");
+                }}
+              />
+              {state?.errors?.["file"]?.[0] && (
+                <p className="text-destructive font-medium text-sm first-letter:uppercase">
+                  {state?.errors?.["file"]?.[0]}
+                </p>
+              )}
+            </div>
           </CardContent>
           <CardFooter className="mt-6 flex justify-center w-[80%] mx-auto">
-            <Button
-              type="submit"
-              className="w-full text-lg transition-all ease-linear hover:scale-105"
-            >
-              Submit product
-            </Button>
+            <ButtonFull title="Create your product" />
           </CardFooter>
         </form>
       </Card>

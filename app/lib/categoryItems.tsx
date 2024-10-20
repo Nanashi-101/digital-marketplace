@@ -17,7 +17,7 @@ export const categoryItems: iCategoryItems[] = [
   },
   {
     id: 1,
-    name: "ui-kits",
+    name: "Uikits",
     title: "Ui Kits",
     image: <ChefHat size={28} />,
   },

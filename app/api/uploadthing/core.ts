@@ -31,7 +31,7 @@ export const ourFileRouter = {
     }),
 
   // Define to upload zip files of the products
-  productFileUploader: f({ "application/zip": { maxFileCount: 1 } })
+  productFileUploader: f({ "blob": { maxFileCount: 1 } })
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload

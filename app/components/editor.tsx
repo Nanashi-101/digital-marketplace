@@ -82,6 +82,7 @@ export function TipTapEditor({
         class: "focus:outline-none min-h-[150px] prose prose-sm sm:prose-base",
       },
     },
+    immediatelyRender: false,//* This is necessary to prevent the editor from rendering immediately and avoid hydration mismatches.
     onUpdate: ({ editor }) => {
       setJson(editor.getJSON());
     }

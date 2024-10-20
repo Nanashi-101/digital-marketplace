@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Varela_Round, M_PLUS_Rounded_1c, Pacifico, Roboto } from "next/font/google";
+import { Varela_Round, Pacifico, Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
@@ -24,13 +24,7 @@ const varelaRound = Varela_Round({
   subsets: ["latin"],
   variable: "--font-varela-round",
   weight: "400",
-});
-
-const MPlusRound = M_PLUS_Rounded_1c({
-  subsets: ["latin"],
-  variable: "--font-plus-round",
-  weight: "700",
-});
+});;
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -59,7 +53,7 @@ export default function RootLayout({
         routerConfig={extractRouterConfig(ourFileRouter)}
       />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${varelaRound.variable} ${MPlusRound.variable} ${pacifico.variable} ${roboto.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${varelaRound.variable} ${pacifico.variable} ${roboto.variable} antialiased`}
       >
         <Navbar />
         {children}

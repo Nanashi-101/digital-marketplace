@@ -29,9 +29,9 @@ export async function GET() { // don't add default here it breaks the authentica
     dbUser = await prisma.user.create({
       data: {
         id: user.id,
-        email: user.email ?? "No email",
-        firstName: user.given_name ?? "No name",
-        lastName: user.family_name ?? "No last name",
+        email: user.email ?? "",
+        firstName: user.given_name ?? "",
+        lastName: user.family_name ?? "",
         profileImage: user.picture ?? `https://avatar.vercel.sh/${user.given_name}.svg`,
       },
     });

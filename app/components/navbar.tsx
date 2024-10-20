@@ -16,7 +16,7 @@ async function Navbar() {
   const user = await getUser();
   return (
     // This is gonna be a new way to create a navbar for me in the future
-    <nav className="relative max-w-7xl w-full flex md:grid md:grid-cols-12 items-center px-2 mx-auto py-7">
+    <nav className="relative max-w-7xl w-full flex md:grid md:grid-cols-12 items-center px-3 mx-auto py-7">
       {/* This is the first part of the nav it takes upto 3 columns */}
       <div className="md:col-span-3">
         <Link href="/" className="flex items-center justify-center gap-2">

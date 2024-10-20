@@ -1,8 +1,11 @@
+import Hero from "./components/hero";
+import NewestProduct from "./components/NewestProduct";
 
 export default function Home() {
   return (
-    <div>
-      <h1>Hello to the new Project</h1>
-    </div>
+    <section className="max-w-7xl mx-auto px-4 md:px-8 mb-24">
+      <Hero/>
+      <NewestProduct/>
+    </section>
   );
 }

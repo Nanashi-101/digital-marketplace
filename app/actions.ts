@@ -15,6 +15,10 @@ export type State = {
 };
 
 import { z } from "zod"; // Import the zod library
+import prisma from "./lib/db";
+import { categoryTypes } from "@prisma/client";
+
+// * This is the start of the product validation and submission action file.
 
 //  Define the schema for the product as the zod object
 const productSchema = z.object({
@@ -27,15 +31,14 @@ const productSchema = z.object({
     message: "price should be greater than 0 and please select a currency",
   }),
   currency: z.string().min(1, { message: "currency is required" }),
-  smallDescription: z
-    .string()
-    .min(3, { message: "Give a bigger summary" }),
+  smallDescription: z.string().min(3, { message: "Give a bigger summary" }),
   description: z
     .string()
     .min(10, { message: "Please describe your product more" }),
   images: z
     .array(z.string())
     .min(1, { message: "at least one image is required" }),
+  file: z.string().min(1, { message: "at least 1 file is required" }),
 });
 
 // Define the function to handle the form submission
@@ -46,7 +49,7 @@ export async function SellProduct(prevSate: any, formData: FormData) {
 
   if (!user) throw new Error("Unauthorized. Something went wrong");
 
-//   Validate the form data using the zod schema
+  //   Validate the form data using the zod schema
   const validateFields = productSchema.safeParse({
     name: formData.get("title") as string,
     category: formData.get("category") as string,
@@ -55,24 +58,96 @@ export async function SellProduct(prevSate: any, formData: FormData) {
     smallDescription: formData.get("smallDescription") as string,
     description: formData.get("description") as string,
     images: JSON.parse(formData.get("images") as string),
+    file: formData.get("file") as string,
   });
 
-//   If the form data is not valid, return the error state
+  //   If the form data is not valid, return the error state
   if (!validateFields.success) {
     const state: State = {
       status: "error",
       errors: validateFields.error.flatten().fieldErrors,
-      message: "Fuck youuuuuuuuuuuuuuuu!!!! FUUCCCKKKKK!!!",
+      message: "Something went wrong",
     };
 
     return state;
   }
 
-//   If the form data is valid, return success state
+  await prisma.product.create({
+    data: {
+      name: validateFields.data.name,
+      category: validateFields.data.category as categoryTypes,
+      price: validateFields.data.price,
+      currency: validateFields.data.currency,
+      smallDescription: validateFields.data.smallDescription,
+      description: JSON.parse(validateFields.data.description),
+      images: validateFields.data.images,
+      userId: user.id,
+    },
+  }); // Create the product in the database
+
+  //   If the form data is valid, return success state
   const state: State = {
     status: "success",
-    message: "Your product is created"
+    message: "Your product is created",
+  };
+
+  return state;
+}
+
+// * This is the end of the product validation and submission action file.
+
+// * This is the start of the settings validation and submission action file.
+
+
+// Define the schema for the settings form
+const settingsSchema = z.object({
+  firstName: z
+    .string()
+    .min(3, { message: "First name should have a min length of 3" })
+    .or(z.literal(""))
+    .optional(),
+  lastName: z
+    .string()
+    .min(3, { message: "Last name should have a min length of 3" })
+    .or(z.literal(""))
+    .optional()
+});
+
+// Define the function to handle the form submission
+export const UpdateUserData = async (prevSate: any, formData: FormData) => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) throw new Error("Unauthorized. Something went wrong");
+  const validateFields = settingsSchema.safeParse({
+    firstName: formData.get("firstName") as string,
+    lastName: formData.get("lastName") as string,
+  });
+
+  if(!validateFields.success){
+    const state: State = {
+      status: "error",
+      errors: validateFields.error.flatten().fieldErrors,
+      message: "Something went wrong",
+    };
+
+    return state;
   }
+
+  await prisma.user.update({
+    where:{
+      id: user.id,
+    },
+    data:{
+      firstName: validateFields.data.firstName,
+      lastName: validateFields.data.lastName,
+    }
+  });
+
+  const state: State = {
+    status: "success",
+    message: "Your data is updated",
+  };
 
   return state;
 }

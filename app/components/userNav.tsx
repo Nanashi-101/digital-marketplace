@@ -48,7 +48,9 @@ function UserNav({ email, username, userImg }: iUserProps) {
           <DropdownMenuItem asChild>
             <Link href="/sell">Your Product</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>Link 1</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/settings">Settings</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>Link 1</DropdownMenuItem>
           <DropdownMenuItem>Link 1</DropdownMenuItem>
         </DropdownMenuGroup>
