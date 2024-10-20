@@ -52,8 +52,8 @@ function ProductCard({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="ml-16"/>
-        <CarouselNext className="mr-16"/>
+        <CarouselPrevious className="ml-16" />
+        <CarouselNext className="mr-16" />
       </Carousel>
       <div className="flex justify-between items-center mt-2">
         <h1 className="font-semibold text-xl">{name}</h1>
@@ -65,8 +65,17 @@ function ProductCard({
         {smallDescription}
       </p>
 
-      <Button asChild className="w-full mt-5">
-          <Link href={`/product/${id}`} className="text-xl">Learn more <SquareArrowOutUpRight size={20} className="ml-2"/></Link>
+      <Button
+        asChild
+        className="w-full mt-5 transition-all ease-in hover:scale-105"
+      >
+        <Link href={`/product/${id}`} className="text-xl">
+          Learn more{" "}
+          <SquareArrowOutUpRight
+            size={20}
+            className="ml-2"
+          />
+        </Link>
       </Button>
     </div>
   );

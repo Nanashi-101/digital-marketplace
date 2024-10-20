@@ -19,7 +19,7 @@ async function MobileNav() {
       <SheetTrigger asChild>
         <Menu size={32} color="#F97316" />
       </SheetTrigger>
-      <SheetContent side={"bottom"}>
+      <SheetContent side={"bottom"} className="rounded-t-lg">
         <div className="mt-5 flex px-2 space-y-1 flex-col">
           {navLinks.map((link) => (
             <Link
