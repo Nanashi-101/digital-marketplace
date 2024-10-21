@@ -33,13 +33,18 @@ function UserNav({ email, username, userImg }: iUserProps) {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 backdrop:blur-md sm:backdrop:blur-none" align="end">
+      <DropdownMenuContent
+        className="w-56 backdrop:blur-md sm:backdrop:blur-none"
+        align="end"
+      >
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{username}</p>
             <p className="text-xs leading-none text-muted-foreground">
               <span className="text-[#F9802D] font-bold">@</span>
-              {`${email ? email.slice(0,9) : username.slice(0,7)}.${Math.floor(Math.random() * 1000000)}`}
+              {`${
+                email ? email.slice(0, 9) : username.slice(0, 7)
+              }.${Math.floor(Math.random() * 1000000)}`}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -51,18 +56,14 @@ function UserNav({ email, username, userImg }: iUserProps) {
           <DropdownMenuItem>
             <Link href="/settings">Settings</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>Link 1</DropdownMenuItem>
-          <DropdownMenuItem>Link 1</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex justify-center items-center">
-          <Button className="w-[80%]">
-            <LogoutLink className="flex items-center gap-2 hover:scale-105 transition-all ease-out">
-              Log out
-              <LogOutIcon size={15} />
-            </LogoutLink>
-          </Button>
-        </DropdownMenuItem>
+        <Button className="w-[80%] mb-3 flex items-center mx-auto hover:scale-105 transition-all ease-out">
+          <LogoutLink className="flex items-center gap-2">
+            Log out
+            <LogOutIcon size={15} />
+          </LogoutLink>
+        </Button>
       </DropdownMenuContent>
     </DropdownMenu>
   );

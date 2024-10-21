@@ -36,10 +36,11 @@ function SelectPrice() {
           <SelectValue placeholder="Currency" />
         </SelectTrigger>
         <SelectContent align="center">
-          <SelectItem value="PLN">PLN</SelectItem>
-          <SelectItem value="USD">USD</SelectItem>
-          <SelectItem value="EUR">EUR</SelectItem>
-          <SelectItem value="INR">INR</SelectItem>
+          <SelectItem value="zł">PLN</SelectItem>
+          <SelectItem value="$">USD</SelectItem>
+          <SelectItem value="€">EUR</SelectItem>
+          <SelectItem value="₹">INR</SelectItem>
+          <SelectItem value="¥">JPY</SelectItem>
         </SelectContent>
       </Select>
     </div>

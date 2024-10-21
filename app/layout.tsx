@@ -7,7 +7,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "@/components/ui/sonner";
-
+import { ThemeProvider } from "./components/themeProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,7 +24,7 @@ const varelaRound = Varela_Round({
   subsets: ["latin"],
   variable: "--font-varela-round",
   weight: "400",
-});;
+});
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -34,7 +34,7 @@ const pacifico = Pacifico({
 const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-roboto",
-  weight: "700",
+  weight: ["700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -49,15 +49,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <NextSSRPlugin
-        routerConfig={extractRouterConfig(ourFileRouter)}
-      />
+      <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${varelaRound.variable} ${pacifico.variable} ${roboto.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Toaster richColors theme="light" closeButton/>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+          <Toaster richColors theme="light" closeButton />
+        </ThemeProvider>
       </body>
     </html>
   );

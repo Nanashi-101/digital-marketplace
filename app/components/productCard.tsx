@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -13,12 +14,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 interface IAppProps {
-  id:string;
+  id: string;
   name: string;
   price: number;
   currency: string;
   smallDescription: string;
   images: string[];
+  category: categoryTypes;
 }
 
 function ProductCard({
@@ -27,7 +29,8 @@ function ProductCard({
   currency,
   smallDescription,
   price,
-  id
+  id,
+  category,
 }: IAppProps) {
   return (
     <div className="rounded-lg">
@@ -61,6 +64,7 @@ function ProductCard({
           {currency} {price}
         </h3>
       </div>
+      <Badge variant={"default"} className="uppercase my-2 dark:bg-primary">{category}</Badge>
       <p className="text-gray-600 text-sm mt-2 line-clamp-2">
         {smallDescription}
       </p>
@@ -70,11 +74,7 @@ function ProductCard({
         className="w-full mt-5 transition-all ease-in hover:scale-105"
       >
         <Link href={`/product/${id}`} className="text-xl">
-          Learn more{" "}
-          <SquareArrowOutUpRight
-            size={20}
-            className="ml-2"
-          />
+          Learn more <SquareArrowOutUpRight size={20} className="ml-2" />
         </Link>
       </Button>
     </div>

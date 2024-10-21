@@ -15,8 +15,14 @@
   font-family: var(--font-pacifico);
 }
 
-.roboto {
+.roboto-900 {
   font-family: var(--font-roboto);
+  font-weight: 900;
+}
+
+.roboto-700 {
+  font-family: var(--font-roboto);
+  font-weight: 700;
 }
 
 

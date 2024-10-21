@@ -140,8 +140,8 @@ function SellRoute() {
               )}
             </div>
             <div className="flex flex-col gap-y-2">
-              <input type="hidden" name="file" value={file ?? ""} />
-              <Label className="text-lg">Product Image:</Label>
+              <input type="hidden" name="productFile" value={file ?? ""} />
+              <Label className="text-lg">Product File:</Label>
               <UploadDropzone
                 endpoint="productFileUploader"
                 onClientUploadComplete={(res) => {
@@ -152,9 +152,9 @@ function SellRoute() {
                   toast.error("File upload failed");
                 }}
               />
-              {state?.errors?.["file"]?.[0] && (
+              {state?.errors?.["productFile"]?.[0] && (
                 <p className="text-destructive font-medium text-sm first-letter:uppercase">
-                  {state?.errors?.["file"]?.[0]}
+                  {state?.errors?.["productFile"]?.[0]}
                 </p>
               )}
             </div>

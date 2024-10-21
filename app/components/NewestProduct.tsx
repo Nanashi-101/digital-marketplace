@@ -50,6 +50,7 @@ async function NewestProduct() {
             price={product.price}
             id={product.id}
             smallDescription={product.smallDescription}
+            category={product.category}
           />
         ))}
       </div>

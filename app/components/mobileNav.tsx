@@ -10,6 +10,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "../lib/data";
+import { ModeToggle } from "./modeToggler";
 
 async function MobileNav() {
   const { getUser } = getKindeServerSession();
@@ -34,7 +35,8 @@ async function MobileNav() {
             <></>
           ) : (
             <div className="flex gap-x-2 justify-center">
-              <Button variant={"outline"} asChild>
+              <ModeToggle />
+              <Button variant={"outline"} asChild className="ml-4">
                 <LoginLink>Log in</LoginLink>
               </Button>
               <Button>

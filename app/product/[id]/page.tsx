@@ -1,11 +1,23 @@
-import prisma from '@/app/lib/db';
-import { Carousel, CarouselContent } from '@/components/ui/carousel'
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import ProductDescription from "@/app/components/productDescription";
+import prisma from "@/app/lib/db";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { type JSONContent } from "@tiptap/react";
+import Image from "next/image";
 
-async function getProduct() {
-  const data = await prisma.product.findMany({
-    orderBy: {
-      createdAt: "desc",
+async function getProduct(id: string) {
+  const data = await prisma.product.findUnique({
+    where: {
+      id: id,
     },
     select: {
       id: true,
@@ -16,23 +28,90 @@ async function getProduct() {
       description: true,
       images: true,
       category: true,
+      createdAt: true,
+      User: {
+        select: {
+          profileImage: true,
+          firstName: true,
+        },
+      },
     },
-    take: 4,
   });
 
   return data;
 }
 
-function ProductIdPage() {
+async function ProductIdPage({ params }: { params: { id: string } }) {
+  const data = await getProduct(params.id);
   return (
-    <section className='max-w-7xl mx-auto px-4 lg:px-8 lg:gid lg:grid-row-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16'>
-      <Carousel className='lg:row-end-1 lg:col-span-4'>
+    <section className="max-w-7xl mx-auto px-4 lg:px-8 lg:grid lg:grid-row-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
+      <Carousel
+        className="lg:row-end-1 lg:col-span-4"
+        opts={{
+          loop: true,
+        }}
+      >
         <CarouselContent>
-
+          {data?.images.map((image, index) => (
+            <CarouselItem key={index}>
+              <div className="aspect-w-3 aspect-h-[2.5] rounded-lg bg-gray-100 overflow-hidden">
+                <Image
+                  src={image as string}
+                  alt={data.name}
+                  layout="fill"
+                  objectFit="cover"
+                  className="shadow-xl rounded-lg w-full h-full"
+                  sizes="100vw"
+                  quality={100}
+                />
+              </div>
+            </CarouselItem>
+          ))}
         </CarouselContent>
+        <CarouselPrevious className="ml-16" />
+        <CarouselNext className="mr-16" />
       </Carousel>
+      <div className="max-w-2xl mx-auto mt-5 lg:row-span-2 lg:max-w-none lg:mt-0 lg:row-end-2 lg:col-span-3 ">
+        <h1 className="text-2xl font-extrabold roboto tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+          {data?.name}
+        </h1>
+        <p className="line-clamp-2 font-semibold mt-4 text-muted-foreground">
+          {data?.smallDescription}
+        </p>
+        <Button className="w-full mt-6" size={"lg"}>
+          Buy for {data?.currency}
+          {data?.price}
+        </Button>
+
+        <div className="border-t border-gray-200 mt-6 pt-6">
+          <div className="grid grid-cols-2 w-full gap-y-3">
+            <h3 className="text-sm text-muted-foreground col-span-1 roboto-700">
+              Released:{" "}
+            </h3>
+            {/* This is how to make a proper date for the UI */}
+            <h3 className="text-sm text-muted-foreground col-span-1 font-semibold roboto-900">
+              {new Intl.DateTimeFormat("en-US", {
+                dateStyle: "long",
+              }).format(data?.createdAt)}
+            </h3>
+            <h3 className="text-sm text-muted-foreground col-span-1 roboto-700">
+              Category:{" "}
+            </h3>
+            <h3 className="text-sm text-muted-foreground col-span-1 font-semibold roboto-900">
+              <Badge variant={"default"} className="capitalize my-2">
+                {data?.category}
+              </Badge>
+            </h3>
+          </div>
+        </div>
+        <div className="border-t border-gray-200 mt-4 pt-10">
+          <ScrollArea className="rounded-md border p-4 h-full sm:h-[200px] shadow-md dark:text-gray-100">
+            <ProductDescription content={data?.description as JSONContent} />
+          </ScrollArea>
+        </div>
+      </div>
     </section>
-  )
+  );
 }
 
-export default ProductIdPage
+export default ProductIdPage;

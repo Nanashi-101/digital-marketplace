@@ -27,6 +27,7 @@ model Product {
   currency         String
   images           String[]
   category         categoryTypes
+  productFile      String
 
   createdAt DateTime @default(now())
 

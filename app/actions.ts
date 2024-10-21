@@ -38,7 +38,7 @@ const productSchema = z.object({
   images: z
     .array(z.string())
     .min(1, { message: "at least one image is required" }),
-  file: z.string().min(1, { message: "at least 1 file is required" }),
+  productFile: z.string().min(1, { message: "at least 1 file is required" }),
 });
 
 // Define the function to handle the form submission
@@ -58,7 +58,7 @@ export async function SellProduct(prevSate: any, formData: FormData) {
     smallDescription: formData.get("smallDescription") as string,
     description: formData.get("description") as string,
     images: JSON.parse(formData.get("images") as string),
-    file: formData.get("file") as string,
+    productFile: formData.get("productFile") as string,
   });
 
   //   If the form data is not valid, return the error state
@@ -72,7 +72,7 @@ export async function SellProduct(prevSate: any, formData: FormData) {
     return state;
   }
 
-  await prisma.product.create({
+  const data = await prisma.product.create({
     data: {
       name: validateFields.data.name,
       category: validateFields.data.category as categoryTypes,
@@ -81,6 +81,7 @@ export async function SellProduct(prevSate: any, formData: FormData) {
       smallDescription: validateFields.data.smallDescription,
       description: JSON.parse(validateFields.data.description),
       images: validateFields.data.images,
+      productFile: validateFields.data.productFile,
       userId: user.id,
     },
   }); // Create the product in the database

@@ -10,6 +10,7 @@ import Link from "next/link";
 import MobileNav from "./mobileNav";
 import NavbarLinks from "./navbarLinks";
 import UserNav from "./userNav";
+import { ModeToggle } from "./modeToggler";
 
 async function Navbar() {
   const { getUser } = getKindeServerSession();
@@ -32,14 +33,21 @@ async function Navbar() {
       {/* This is the Third part of the nav it also takes upto 3 columns */}
       <div className="flex item-center gap-x-2 ms-auto md:col-span-3">
         {user ? (
-          <UserNav
-            email={user.email as string}
-            username={`${user.given_name}` as string}
-            userImg={user.picture ?? `https://avatar.vercel.sh/${user.given_name}.svg`}
-          />
+          <div className="flex items-center gap-5">
+            <ModeToggle />
+            <UserNav
+              email={user.email as string}
+              username={`${user.given_name}` as string}
+              userImg={
+                user.picture ??
+                `https://avatar.vercel.sh/${user.given_name}.svg`
+              }
+            />
+          </div>
         ) : (
           <div className="hidden md:flex gap-x-2">
-            <Button variant={"outline"} asChild>
+            <ModeToggle />
+            <Button variant={"outline"} asChild className="ml-3">
               <LoginLink>Log in</LoginLink>
             </Button>
             <Button>
