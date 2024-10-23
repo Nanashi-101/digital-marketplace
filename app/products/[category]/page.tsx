@@ -1,11 +1,87 @@
-import React from 'react'
+import Hero from "@/app/components/hero";
+import NoProduct from "@/app/components/noProduct";
+import {ProductCard} from "@/app/components/productCard";
+import prisma from "@/app/lib/db";
+import { categoryTypes } from "@prisma/client";
+import { notFound } from "next/navigation";
+import React from "react";
 
-function CustomProducts({params}: {params: {category: string}}) {
-  return (
-    <div>
-      <h1>Hello from {params.category}</h1>
-    </div>
-  )
+async function getProducts(category: string) {
+  let input;
+
+  switch (category) {
+    case "templates": {
+      input = "templates";
+      break;
+    }
+    case "Uikits": {
+      input = "Uikits";
+      break;
+    }
+    case "icons": {
+      input = "icons";
+      break;
+    }
+    case "all": {
+      input = undefined;
+      break;
+    }
+    default:
+      return notFound();
+  }
+
+  const data = await prisma.product.findMany({
+    where: {
+      category: input as categoryTypes,
+    },
+    select: {
+      id: true,
+      name: true,
+      smallDescription: true,
+      price: true,
+      currency: true,
+      category: true,
+      images: true,
+    },
+  });
+
+  return data;
 }
 
-export default CustomProducts
+async function CustomProducts({ params }: { params: { category: string } }) {
+  const data = await getProducts(params.category);
+
+  return (
+    <section className="max-w-7xl w-full mx-auto px-4 md:px-8 flex flex-col items-center mb-16">
+      <div className="my-6">
+        <Hero
+          condition={false}
+          tag={params.category}
+          context="ChromaUI is a professional digital marketplace that will help you find the best products for your project."
+        />
+      </div>
+      {data.length ? (
+        <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-10 mt-4 w-[90%]">
+          {data.map((product) => (
+            <ProductCard
+              key={product.id}
+              images={product.images}
+              currency={product.currency}
+              name={product.name}
+              price={product.price}
+              id={product.id}
+              smallDescription={product.smallDescription}
+              category={product.category}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="my-24">
+          <NoProduct text={params.category as string}/>
+        </div>
+      )}
+    </section>
+  );
+}
+
+export default CustomProducts;

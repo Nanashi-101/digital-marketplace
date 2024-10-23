@@ -8,6 +8,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "./components/themeProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -59,9 +60,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
-          <Toaster richColors theme="light" closeButton />
+          <TooltipProvider>
+            <Navbar />
+            {children}
+            <Toaster richColors theme="light" closeButton />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

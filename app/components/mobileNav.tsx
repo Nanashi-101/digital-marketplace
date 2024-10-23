@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   LoginLink,
-  RegisterLink
+  RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Menu } from "lucide-react";
@@ -32,7 +32,8 @@ async function MobileNav() {
             </Link>
           ))}
           {user ? (
-            <></>
+            <>
+            </>
           ) : (
             <div className="flex gap-x-2 justify-center">
               <ModeToggle />

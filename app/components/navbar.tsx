@@ -34,7 +34,6 @@ async function Navbar() {
       <div className="flex item-center gap-x-2 ms-auto md:col-span-3">
         {user ? (
           <div className="flex items-center gap-5">
-            <ModeToggle />
             <UserNav
               email={user.email as string}
               username={`${user.given_name}` as string}

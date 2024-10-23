@@ -19,10 +19,11 @@ function ProductDescription({content}: {content: JSONContent}) {
     if(!editor) return null
 
     return (
-        <>
+      <>
+        
         <EditorContent editor={editor} />
-        </>
-    )
+      </>
+    );
 }
 
 export default ProductDescription

@@ -8,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
 import { categoryTypes } from "@prisma/client";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Image from "next/image";
@@ -23,7 +24,7 @@ interface IAppProps {
   category: categoryTypes;
 }
 
-function ProductCard({
+export function ProductCard({
   images,
   name,
   currency,
@@ -81,4 +82,15 @@ function ProductCard({
   );
 }
 
-export default ProductCard;
+export function LoadingProductCard(){
+  return (
+    <div className="flex flex-col">
+      <Skeleton className="w-full h-[230px] rounded-lg" />
+      <div className="flex-flex-col gap-y-2">
+        <Skeleton className="h-4 w-full"/>
+        <Skeleton className="h-6 w-full"/>
+      </div>
+      <Skeleton className="h-10 mt-5 w-full"/>
+    </div>
+  );
+}

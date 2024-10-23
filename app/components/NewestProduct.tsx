@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
 import prisma from "../lib/db";
-import ProductCard from "./productCard";
+import {ProductCard} from "./productCard";
 
 async function getProduct() {
   const data = await prisma.product.findMany({
@@ -33,7 +33,7 @@ async function NewestProduct() {
           Newest Products
         </h2>
         <Link
-          href="#"
+          href="/products/all"
           className="text-primary  hidden text-base font-medium hover:text-primary/90 md:block"
         >
           All products <span>&rarr;</span>
