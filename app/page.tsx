@@ -1,6 +1,8 @@
 import Hero from "./components/hero";
 import ProductRow from "./components/productRow";
 
+//Todo: Add the "Project under development" banner
+
 export default function Home() {
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 mb-24">

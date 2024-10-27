@@ -30,10 +30,9 @@ function SelectPrice() {
       <input type="hidden" name="currency" value={currency} />
       <Select
         onValueChange={(value) => setCurrency(value)}
-        defaultValue={currency}
       >
         <SelectTrigger>
-          <SelectValue placeholder="Currency" />
+          <SelectValue placeholder="Currency" className="placeholder:text-muted-foreground"/>
         </SelectTrigger>
         <SelectContent align="center">
           <SelectItem value="zł">PLN</SelectItem>

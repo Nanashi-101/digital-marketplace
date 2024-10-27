@@ -9,11 +9,13 @@ datasource db {
 }
 
 model User {
-  id           String  @id @unique
-  email        String  @unique
-  firstName    String?
-  lastName     String?
-  profileImage String?
+  id                  String  @id @unique
+  email               String  @unique
+  firstName           String
+  lastName            String
+  profileImage        String
+  connectedAccountId  String  @unique
+  stripeConnectLinked Boolean @default(false)
 
   Products Product[]
 }

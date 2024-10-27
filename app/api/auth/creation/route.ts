@@ -1,38 +1,57 @@
 import prisma from "@/app/lib/db";
+import { stripe } from "@/app/lib/stripe";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 // This is a GET request, so we can send user data to our Database
-export async function GET() { // don't add default here it breaks the authentication
+export async function GET() {
+  // don't add default here it breaks the authentication
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
   // If the user is not authenticated, we return an error
-  if(!user || user === null || !user.id){
+  if (!user || user === null || !user.id) {
     return {
       status: 401,
       body: {
-        error: "Unauthorized"
-      }
-    }
+        error: "Unauthorized",
+      },
+    };
   }
 
   // We check if the user is already in the database
-  let dbUser =  await prisma.user.findUnique({
+  let dbUser = await prisma.user.findUnique({
     where: {
-      id: user.id
-    }
-  })
+      id: user.id,
+    },
+  });
 
   // If the user is not in the database, we create a new user
-  if(!dbUser){
+  if (!dbUser) {
+    const account = await stripe.accounts.create({
+      email: user.email as string,
+      controller: {
+        losses: {
+          payments: "application",
+        },
+        fees: {
+          payer: "application",
+        },
+        stripe_dashboard: {
+          type: "express",
+        },
+      },
+    });
+
     dbUser = await prisma.user.create({
       data: {
         id: user.id,
         email: user.email ?? "",
         firstName: user.given_name ?? "",
         lastName: user.family_name ?? "",
-        profileImage: user.picture ?? `https://avatar.vercel.sh/${user.given_name}.svg`,
+        profileImage:
+          user.picture ?? `https://avatar.vercel.sh/${user.given_name}.svg`,
+        connectedAccountId: account.id,
       },
     });
   }

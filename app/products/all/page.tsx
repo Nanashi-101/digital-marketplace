@@ -1,34 +1,13 @@
-import Hero from "@/app/components/hero";
-import NoProduct from "@/app/components/noProduct";
-import {ProductCard} from "@/app/components/productCard";
-import prisma from "@/app/lib/db";
-import { categoryTypes } from "@prisma/client";
-import { notFound } from "next/navigation";
-import React from "react";
+import Hero from '@/app/components/hero';
+import NoProduct from '@/app/components/noProduct';
+import { ProductCard } from '@/app/components/productCard';
+import prisma from '@/app/lib/db';
+import React from 'react'
 
-async function getProducts(category: string) {
-  let input;
-
-  switch (category) {
-    case "templates": {
-      input = "templates";
-      break;
-    }
-    case "Uikits": {
-      input = "Uikits";
-      break;
-    }
-    case "icons": {
-      input = "icons";
-      break;
-    }
-    default:
-      return notFound();
-  }
-
+async function getProducts() {
   const data = await prisma.product.findMany({
     where: {
-      category: input as categoryTypes,
+      category: undefined,
     },
     select: {
       id: true,
@@ -44,15 +23,15 @@ async function getProducts(category: string) {
   return data;
 }
 
-async function CustomProducts({ params }: { params: { category: string } }) {
-  const data = await getProducts(params.category);
+async function AllProductRoute() {
+  const data = await getProducts();
 
   return (
     <section className="max-w-7xl w-full mx-auto px-4 md:px-8 flex flex-col items-center mb-16">
       <div className="my-6">
         <Hero
           condition={false}
-          tag={params.category}
+          tag={"Product"}
           context="ChromaUI is a professional digital marketplace that will help you find the best products for your project."
         />
       </div>
@@ -73,11 +52,11 @@ async function CustomProducts({ params }: { params: { category: string } }) {
         </div>
       ) : (
         <div className="my-24">
-          <NoProduct text={params.category as string}/>
+          <NoProduct text={"Products"} />
         </div>
       )}
     </section>
   );
 }
 
-export default CustomProducts;
+export default AllProductRoute

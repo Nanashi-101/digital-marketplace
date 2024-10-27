@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { State, UpdateUserData } from "@/app/actions";
 import {
   CardContent,
   CardDescription,
@@ -9,11 +12,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React, { useEffect } from "react";
-import { ButtonSmall } from "../SubmitButton";
-import { State, UpdateUserData } from "@/app/actions";
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
+import { ButtonSmall } from "../SubmitButton";
 
 interface IAppProps {
   firstName: string;
@@ -21,7 +23,7 @@ interface IAppProps {
   email: string;
 }
 
-function SettingsForm({ firstName, lastName, email }: IAppProps) {
+function ProfileForm({ firstName, lastName, email }: IAppProps) {
   const initialState: State = { message: "", status: undefined };
   const [state, formAction] = useFormState(UpdateUserData, initialState);
   
@@ -38,7 +40,7 @@ function SettingsForm({ firstName, lastName, email }: IAppProps) {
     <form action={formAction}>
       <CardHeader>
         <CardTitle className="text-4xl font-semibold roboto">
-          Settings
+          Your Profile
         </CardTitle>
         <CardDescription className="text-xl robot font-medium">
           Here you can manage your account data
@@ -81,4 +83,4 @@ function SettingsForm({ firstName, lastName, email }: IAppProps) {
   );
 }
 
-export default SettingsForm;
+export default ProfileForm;

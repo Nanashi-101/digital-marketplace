@@ -34,7 +34,7 @@ export function ProductCard({
   category,
 }: IAppProps) {
   return (
-    <div className="rounded-lg">
+    <div className="rounded-lg shadow-lg p-2 dark:border ">
       <Carousel
         className="w-full mx-auto"
         opts={{

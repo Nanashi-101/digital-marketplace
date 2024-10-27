@@ -10,9 +10,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { LogOutIcon } from "lucide-react";
+import {
+  LogOutIcon,
+  ScanFace,
+  ShoppingBagIcon,
+  ShoppingBasketIcon,
+  Wallet
+} from "lucide-react";
 import Link from "next/link";
-import React from "react";
 import { ModeToggle } from "./modeToggler";
 
 interface iUserProps {
@@ -44,22 +49,51 @@ function UserNav({ email, username, userImg }: iUserProps) {
               <p className="text-sm font-medium leading-none">{username}</p>
               <p className="text-xs leading-none text-muted-foreground">
                 <span className="text-[#F9802D] font-bold">@</span>
-                {`${
-                  email ? email.slice(0, 9) : username.slice(0, 7)
-                }.${Math.floor(Math.random() * 1000000)}`}
+                {`${email ? email : username.slice(0, 7)}.${Math.floor(
+                  Math.random() * 1000000
+                )}`}
               </p>
             </div>
-            <ModeToggle/>
+            <ModeToggle />
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
-            <Link href="/sell">Your Product</Link>
+          <DropdownMenuItem
+            asChild
+            className="bg-primary/10 font-semibold p-3 text-md flex items-center"
+          >
+            <Link href="/sell">
+              <ShoppingBagIcon size={"50px"} />
+              Add a product
+            </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/settings">Settings</Link>
-          </DropdownMenuItem>
+          <div className="my-4">
+            <DropdownMenuItem asChild>
+              <Link
+                href="/profile"
+                className="text-muted-foreground hover:text-black font-medium"
+              >
+                <ScanFace /> My Profile
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href="/my-product"
+                className="text-muted-foreground hover:text-black font-medium"
+              >
+                <ShoppingBasketIcon /> My Products
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href="/billing"
+                className="text-muted-foreground hover:text-black font-medium"
+              >
+                <Wallet /> Billing
+              </Link>
+            </DropdownMenuItem>
+          </div>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <div className="flex gap-x-3">

@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import prisma from "../lib/db";
-import { ProductCard } from "./productCard";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { LoadingProductCard, ProductCard } from "./productCard";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import React, { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface IAppProps {
   category: "newest" | "templates" | "Uikits" | "icons";
@@ -111,10 +117,20 @@ async function getData({ category }: IAppProps) {
   }
 }
 
-async function ProductRow({ category }: IAppProps) {
+function ProductRow({ category }: IAppProps) {
+  return (
+    <Suspense fallback={<LoadingRowsState/>}>
+      <section className="mt-12">
+        <LoadRows category={category} />
+      </section>
+    </Suspense>
+  );
+}
+
+async function LoadRows({ category }: IAppProps) {
   const rawData = await getData({ category: category });
   return (
-    <section className="mt-12">
+    <React.Fragment>
       <div className="md:flex md:item-center md:justify-between">
         <h2 className="text-2xl font-extrabold tracking-tighter roboto">
           {rawData.title}
@@ -128,7 +144,7 @@ async function ProductRow({ category }: IAppProps) {
               All products <span>&rarr;</span>
             </Link>
           </TooltipTrigger>
-          <TooltipContent >
+          <TooltipContent>
             <h1>Click to see all {rawData.title}</h1>
           </TooltipContent>
         </Tooltip>
@@ -148,8 +164,21 @@ async function ProductRow({ category }: IAppProps) {
           />
         ))}
       </div>
-    </section>
+    </React.Fragment>
   );
+}
+
+function LoadingRowsState(){
+  return (
+    <div className="">
+      <Skeleton className="h-8 w-56" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 mt-4 gap-10 lg:grid-cols-3">
+        <LoadingProductCard/>
+        <LoadingProductCard/>
+        <LoadingProductCard/>
+      </div>
+    </div>
+  )
 }
 
 export default ProductRow;

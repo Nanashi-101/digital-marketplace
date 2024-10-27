@@ -12,12 +12,17 @@ import Link from "next/link";
 import { navLinks } from "../lib/data";
 import { ModeToggle } from "./modeToggler";
 
+
 async function MobileNav() {
+  // document.addEventListener("resize", () => {
+  // const mobileNav = document.getElementById("mobile-nav");
+  //   mobileNav?.classList.add("hidden");
+  // });
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="" id="mobile-nav">
         <Menu size={32} color="#F97316" />
       </SheetTrigger>
       <SheetContent side={"bottom"} className="rounded-t-lg">

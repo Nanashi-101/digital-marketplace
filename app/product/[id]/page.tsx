@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { BuyProduct } from "@/app/actions";
 import ProductDescription from "@/app/components/productDescription";
+import { BuyButton } from "@/app/components/SubmitButton";
 import prisma from "@/app/lib/db";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -78,10 +80,10 @@ async function ProductIdPage({ params }: { params: { id: string } }) {
         <p className="line-clamp-2 font-semibold mt-4 text-muted-foreground">
           {data?.smallDescription}
         </p>
-        <Button className="w-full mt-6" size={"lg"}>
-          Buy for {data?.currency}
-          {data?.price}
-        </Button>
+        <form action={BuyProduct}>
+          <input type="hidden" name="id" value={data?.id}/>
+          <BuyButton price={data?.price as number} currency={data?.currency as string}/>
+        </form>
 
         <div className="border-t border-gray-200 mt-6 pt-6">
           <div className="grid grid-cols-2 w-full gap-y-3">

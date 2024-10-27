@@ -4,7 +4,8 @@ import { Card } from "@/components/ui/card";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import React from "react";
 import prisma from "../lib/db";
-import SettingsForm from "../components/forms/settingsFrom";
+import ProfileForm from "../components/forms/profileForm";
+
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -32,7 +33,7 @@ async function SettingsPage() {
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8">
       <Card>
-        <SettingsForm email={data?.email as string} firstName={data?.firstName as string} lastName={data?.lastName as string}/>
+        <ProfileForm email={data?.email as string} firstName={data?.firstName as string} lastName={data?.lastName as string}/>
       </Card>
     </section>
   );

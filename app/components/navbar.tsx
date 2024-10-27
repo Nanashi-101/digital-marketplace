@@ -8,16 +8,37 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import MobileNav from "./mobileNav";
+import { ModeToggle } from "./modeToggler";
 import NavbarLinks from "./navbarLinks";
 import UserNav from "./userNav";
-import { ModeToggle } from "./modeToggler";
+import prisma from "../lib/db";
 
-async function Navbar() {
+async function getUserData(){
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+  if (user) {
+    const data = await prisma.user.findUnique({
+      where: {
+        id: user.id,
+      },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        profileImage: true,
+      },
+    });
+    return data;
+  }
+}
+
+async function Navbar() {
+  const user = await getUserData();
+
   return (
     // This is gonna be a new way to create a navbar for me in the future
-    <nav className="relative max-w-7xl w-full flex md:grid md:grid-cols-12 items-center px-3 mx-auto py-7">
+    <nav className="relative max-w-7xl w-full flex md:grid md:grid-cols-12 items-center px-4 mx-auto py-7">
       {/* This is the first part of the nav it takes upto 3 columns */}
       <div className="md:col-span-3">
         <Link href="/" className="flex items-center justify-center gap-2">
@@ -36,10 +57,10 @@ async function Navbar() {
           <div className="flex items-center gap-5">
             <UserNav
               email={user.email as string}
-              username={`${user.given_name}` as string}
+              username={`${user.firstName}` as string}
               userImg={
-                user.picture ??
-                `https://avatar.vercel.sh/${user.given_name}.svg`
+                user.profileImage ??
+                `https://avatar.vercel.sh/${user.firstName}.svg`
               }
             />
           </div>
