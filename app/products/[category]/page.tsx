@@ -5,6 +5,7 @@ import prisma from "@/app/lib/db";
 import { categoryTypes } from "@prisma/client";
 import { notFound } from "next/navigation";
 import React from "react";
+import { unstable_noStore as noStore } from "next/cache";
 
 async function getProducts(category: string) {
   let input;
@@ -45,6 +46,7 @@ async function getProducts(category: string) {
 }
 
 async function CustomProducts({ params }: { params: { category: string } }) {
+  noStore();
   const data = await getProducts(params.category);
 
   return (

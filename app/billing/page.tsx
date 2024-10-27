@@ -9,6 +9,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createStripeAccountLink, GetStripeDashBoard } from "../actions";
 import { ButtonSmall } from "../components/SubmitButton";
 import prisma from "../lib/db";
+import { unstable_noStore as noStore } from "next/cache";
 
 async function getData(Id: string) {
   const data = await prisma.user.findUnique({
@@ -24,6 +25,7 @@ async function getData(Id: string) {
 }
 
 async function BillingRoute() {
+  noStore();
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 

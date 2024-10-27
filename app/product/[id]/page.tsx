@@ -4,7 +4,6 @@ import ProductDescription from "@/app/components/productDescription";
 import { BuyButton } from "@/app/components/SubmitButton";
 import prisma from "@/app/lib/db";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -15,6 +14,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type JSONContent } from "@tiptap/react";
 import Image from "next/image";
+import { unstable_noStore as noStore } from "next/cache";
 
 async function getProduct(id: string) {
   const data = await prisma.product.findUnique({
@@ -44,6 +44,7 @@ async function getProduct(id: string) {
 }
 
 async function ProductIdPage({ params }: { params: { id: string } }) {
+  noStore();
   const data = await getProduct(params.id);
   return (
     <section className="max-w-7xl mx-auto px-4 lg:px-8 lg:grid lg:grid-row-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">

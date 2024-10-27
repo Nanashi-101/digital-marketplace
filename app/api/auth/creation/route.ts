@@ -2,9 +2,12 @@ import prisma from "@/app/lib/db";
 import { stripe } from "@/app/lib/stripe";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
+import { unstable_noStore as noStore } from "next/cache";
 
 // This is a GET request, so we can send user data to our Database
 export async function GET() {
+  noStore();
+
   // don't add default here it breaks the authentication
   const { getUser } = getKindeServerSession();
   const user = await getUser();

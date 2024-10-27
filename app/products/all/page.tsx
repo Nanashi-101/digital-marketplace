@@ -3,6 +3,7 @@ import NoProduct from '@/app/components/noProduct';
 import { ProductCard } from '@/app/components/productCard';
 import prisma from '@/app/lib/db';
 import React from 'react'
+import { unstable_noStore as noStore } from "next/cache";
 
 async function getProducts() {
   const data = await prisma.product.findMany({
@@ -24,6 +25,7 @@ async function getProducts() {
 }
 
 async function AllProductRoute() {
+  noStore();
   const data = await getProducts();
 
   return (
