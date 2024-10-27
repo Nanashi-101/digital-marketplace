@@ -14,7 +14,7 @@ export async function GET() {
 
   // If the user is not authenticated, we return an error
   if (!user || user === null || !user.id) {
-    throw new Error("Unauthorized. Something went wrong"));
+    throw new Error("Unauthorized. Something went wrong");
   }
 
   // We check if the user is already in the database
