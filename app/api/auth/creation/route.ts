@@ -55,5 +55,9 @@ export async function GET() {
   }
 
   // We return the user data to the db and redirect the user to the homepage
-  return NextResponse.redirect(`http://localhost:3000`);
+  return NextResponse.redirect(
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:3000`
+      : "https://chroma-ui-ecru.vercel.app"
+  );
 }

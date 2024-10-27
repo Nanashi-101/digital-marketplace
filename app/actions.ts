@@ -1,4 +1,3 @@
-
 //* This is the action file that we are going to use to handle the form submission in the sell page. We are going to use the zod library to validate the form data and then we are going to send the data to the server to save the product in the database.
 "use server";
 
@@ -160,11 +159,11 @@ export const BuyProduct = async (formData: FormData) => {
       currency: true,
       smallDescription: true,
       images: true,
-      User:{
-        select:{
-          connectedAccountId:true
-        }
-      }
+      User: {
+        select: {
+          connectedAccountId: true,
+        },
+      },
     },
   });
 
@@ -207,12 +206,18 @@ export const BuyProduct = async (formData: FormData) => {
     ],
     payment_intent_data: {
       application_fee_amount: Math.round((data?.price as number) * 100) * 0.1,
-      transfer_data:{
-        destination: data?.User.connectedAccountId as string
-      }
+      transfer_data: {
+        destination: data?.User.connectedAccountId as string,
+      },
     },
-    success_url: "http://localhost:3000/payments/success",
-    cancel_url: "http://localhost:3000/payments/cancel",
+    success_url:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/payments/success"
+        : "https://chroma-ui-ecru.vercel.app/payments/success",
+    cancel_url:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/payments/cancel"
+        : "https://chroma-ui-ecru.vercel.app/payments/cancel",
   });
 
   redirect(session.url as string);
@@ -235,8 +240,14 @@ export async function createStripeAccountLink() {
 
   const accountLink = await stripe.accountLinks.create({
     account: data?.connectedAccountId as string,
-    refresh_url: "http://localhost:3000/billint",
-    return_url: `http://localhost:3000/return/${data?.connectedAccountId}`,
+    refresh_url:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/billing"
+        : "https://chroma-ui-ecru.vercel.app/billing",
+    return_url:
+      process.env.NODE_ENV === "development"
+        ? `http://localhost:3000/return/${data?.connectedAccountId}`
+        : `https://chroma-ui-ecru.vercel.app/return/${data?.connectedAccountId}`,
     type: "account_onboarding",
   });
 
