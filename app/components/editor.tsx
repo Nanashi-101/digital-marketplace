@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 //* This is the rich editor that we are creating to use in our application. We are using the tiptap library to create this editor. We have created a simple toolbar with a button to add a heading to the editor.
 
 "use client";

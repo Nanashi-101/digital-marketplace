@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 //* This is a webhook that listens for events from Stripe related to stripe connect
 
 import prisma from "@/app/lib/db";

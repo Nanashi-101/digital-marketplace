@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 import { SellProduct, State } from "@/app/actions";
 import { UploadDropzone } from "@/app/lib/uploadThing";

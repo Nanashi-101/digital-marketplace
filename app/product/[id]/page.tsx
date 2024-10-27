@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { BuyProduct } from "@/app/actions";
 import ProductDescription from "@/app/components/productDescription";
 import { BuyButton } from "@/app/components/SubmitButton";

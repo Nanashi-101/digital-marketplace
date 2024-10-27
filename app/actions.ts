@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 //* This is the action file that we are going to use to handle the form submission in the sell page. We are going to use the zod library to validate the form data and then we are going to send the data to the server to save the product in the database.
 "use server";
