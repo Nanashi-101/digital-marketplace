@@ -1,7 +1,7 @@
 "use server";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   LoginLink,
   RegisterLink,
@@ -11,7 +11,8 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "../lib/data";
 import { ModeToggle } from "./modeToggler";
-
+import Image from "next/image";
+import logo from "@/public/Logo1.png";
 
 async function MobileNav() {
   // document.addEventListener("resize", () => {
@@ -22,11 +23,30 @@ async function MobileNav() {
   const user = await getUser();
   return (
     <Sheet>
-      <SheetTrigger asChild className="" id="mobile-nav">
+      <SheetTrigger
+        asChild
+        className=""
+        id="mobile-nav"
+      >
         <Menu size={32} color="#F97316" />
       </SheetTrigger>
-      <SheetContent side={"bottom"} className="rounded-t-lg">
+      <SheetContent side={"left"} className="rounded-t-lg" >
         <div className="mt-5 flex px-2 space-y-1 flex-col">
+          <div className="mb-16">
+            <Link href="/" className="flex items-center justify-center gap-2">
+              <Image
+                src={logo}
+                alt="Chroma UI Logo"
+                className="w-[50px] h-[50px]"
+              />
+              <h1 className="text-3xl font-bold roboto tracking-tight">
+                Chroma
+                <span className="text-4xl text-[#F97316] font-bold roboto">
+                  UI
+                </span>
+              </h1>
+            </Link>
+          </div>
           {navLinks.map((link) => (
             <Link
               key={link.id}
@@ -37,8 +57,7 @@ async function MobileNav() {
             </Link>
           ))}
           {user ? (
-            <>
-            </>
+            <></>
           ) : (
             <div className="flex gap-x-2 justify-center">
               <ModeToggle />

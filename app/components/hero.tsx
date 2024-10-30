@@ -15,7 +15,7 @@ function Hero({
   return (
     <React.Fragment>
       {condition && (
-        <div className="bg-[#ff8e47] absolute hidden sm:block -z-10 rounded-full  sm:w-[7.75rem] sm:h-[7.75rem] sm:left-[3rem] sm:blur[3rem] md:w-[8.75rem] md:h-[8.75rem] md:blur-[4rem] md:left-[8rem] lg:left-[17rem] lg:w-[9.75rem] lg:h-[9.75rem] lg:blur-[4rem] xl:left-[22rem] xl:w-[11.75rem] xl:h-[11.75rem] xl:blur-[6rem] 2xl:left-[65rem]" />
+        <div className="bg-[#ff8e47] absolute hidden sm:block -z-10 rounded-full  sm:max-sm:w-[7.75rem] sm:max-sm:h-[7.75rem] sm:max-sm:left-[3rem] sm:max-sm:blur[3rem] md:w-[8.75rem] md:h-[8.75rem] md:blur-[4rem] md:left-[8rem] lg:left-[17rem] lg:w-[9.75rem] lg:h-[9.75rem] lg:blur-[4rem] xl:left-[22rem] xl:w-[11.75rem] xl:h-[11.75rem] xl:blur-[6rem] 2xl:left-[65rem]" />
       )}
       <div className="max-w-7xl mx-auto text-center varela my-4">
         {condition && (
@@ -39,8 +39,11 @@ function Hero({
           </h1>
         ) : (
           <h1 className="text-md sm:my-3 sm:text-3xl lg:text-5xl font-bold">
-            Find the best <span className="text-primary">{tag === "all"?"Products":tag}</span> from
-            tailwind
+            Find the best{" "}
+            <span className="text-primary">
+              {tag === "all" ? "Products" : tag}
+            </span>{" "}
+            from tailwind
           </h1>
         )}
 
