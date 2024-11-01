@@ -1,3 +1,4 @@
+import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,10 +16,11 @@ import {
   ScanFace,
   ShoppingBagIcon,
   ShoppingBasketIcon,
-  Wallet
+  Wallet,
 } from "lucide-react";
 import Link from "next/link";
 import { ModeToggle } from "./modeToggler";
+import { navLinks } from "../lib/data";
 
 interface iUserProps {
   email: string;
@@ -29,7 +31,10 @@ interface iUserProps {
 function UserNav({ email, username, userImg }: iUserProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild className="ml-4">
+      <DropdownMenuTrigger
+        asChild
+        className="ml-8 translate-x-2 sm:translate-x-0"
+      >
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10">
             <AvatarImage src={userImg} alt="user-img" />
@@ -39,19 +44,18 @@ function UserNav({ email, username, userImg }: iUserProps) {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className="w-56 backdrop:blur-md sm:backdrop:blur-none"
-        align="end"
-      >
+      <DropdownMenuContent className="w-72" align="end">
         <DropdownMenuLabel className="font-normal">
           <div className="flex justify-between items-center ">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">{username}</p>
               <p className="text-xs leading-none text-muted-foreground">
                 <span className="text-[#F9802D] font-bold">@</span>
-                {`${email ? email : username.slice(0, 7)}.${Math.floor(
-                  Math.random() * 1000000
-                )}`}
+                {email
+                  ? email
+                  : `${username.slice(0, 7)}.${Math.floor(
+                      Math.random() * 1000000
+                    )}`}
               </p>
             </div>
             <ModeToggle />
@@ -68,7 +72,7 @@ function UserNav({ email, username, userImg }: iUserProps) {
               Add a product
             </Link>
           </DropdownMenuItem>
-          <div className="my-4">
+          <div className="my-2">
             <DropdownMenuItem asChild>
               <Link
                 href="/profile"
@@ -96,8 +100,22 @@ function UserNav({ email, username, userImg }: iUserProps) {
           </div>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="block sm:hidden" />
+        <DropdownMenuLabel className="block sm:hidden text-center font-semibold text-md bg-primary/10 rounded-lg ">Categories</DropdownMenuLabel>
+        <DropdownMenuGroup className="block sm:hidden mt-2 mb-6">
+          {navLinks.map((link) => (
+              <DropdownMenuItem asChild key={link.id}>
+                <Link
+                  href={link.url}
+                  className="text-muted-foreground hover:text-black font-medium"
+                >
+                  {link.icon}{link.name}
+                </Link>
+              </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
         <div className="flex gap-x-3">
-          <Button className="w-[80%] mb-3 flex items-center mx-auto hover:scale-105 transition-all ease-out">
+          <Button className="w-[80%] mb-4 flex items-center mx-auto hover:scale-105 transition-all ease-out">
             <LogoutLink className="flex items-center gap-2">
               Log out
               <LogOutIcon size={15} />

@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 function NavbarLinks() {
   const location = usePathname();
   return (
-    <div className="hidden md:flex justify-center items-center col-span-6 gap-x-2">
+    <div className="hidden relative md:translate-x-12 md:flex justify-center items-center col-span-6 gap-x-2">
       {navLinks.map((link) => (
         <Link
           key={link.id}

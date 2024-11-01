@@ -38,7 +38,7 @@ async function Navbar() {
 
   return (
     // This is gonna be a new way to create a navbar for me in the future
-    <nav className="relative max-w-7xl w-full flex md:grid md:grid-cols-12 items-center px-4 mx-auto py-7">
+    <nav className="relative max-w-7xl w-full flex md:grid md:grid-cols-12 md:justify-between items-center px-4 mx-auto py-7">
       {/* This is the first part of the nav it takes upto 3 columns */}
       <div className="md:col-span-3">
         <Link href="/" className="flex items-center justify-center gap-2">
@@ -65,20 +65,21 @@ async function Navbar() {
             />
           </div>
         ) : (
-          <div className="hidden md:flex gap-x-2">
-            <ModeToggle />
-            <Button variant={"outline"} asChild className="ml-3">
-              <LoginLink>Log in</LoginLink>
-            </Button>
-            <Button>
-              <RegisterLink>Sign up</RegisterLink>
-            </Button>
-          </div>
+          <>
+            <div className="hidden md:flex gap-x-2">
+              <ModeToggle />
+              <Button variant={"outline"} asChild className="ml-3">
+                <LoginLink>Log in</LoginLink>
+              </Button>
+              <Button>
+                <RegisterLink>Sign up</RegisterLink>
+              </Button>
+            </div>
+            <div className="md:hidden flex items-center" id="mobileNav">
+              <MobileNav />
+            </div>
+          </>
         )}
-
-        <div className="md:hidden flex items-center" id="mobileNav">
-          <MobileNav />
-        </div>
       </div>
     </nav>
   );
