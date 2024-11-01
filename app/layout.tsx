@@ -9,6 +9,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "./components/themeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Footer from "./components/footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -63,6 +64,7 @@ export default function RootLayout({
           <TooltipProvider>
             <Navbar />
             {children}
+            <Footer/>
             <Toaster richColors theme="light" closeButton />
           </TooltipProvider>
         </ThemeProvider>
