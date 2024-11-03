@@ -32,8 +32,8 @@ async function SellRoute() {
 
   if (!user) throw new Error("User not found");
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-8 md:mb-16">
-      <Card className="shadow-2xl shadow-[#f9802d]/20 p-2">
+    <section className="max-w-7xl pb-16 sm:pb-none mx-auto px-4 md:px-8 md:mb-16">
+      <Card className="shadow-lg shadow-primary/30 p-2">
         <SellForm/>
       </Card>
     </section>

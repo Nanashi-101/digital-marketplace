@@ -51,6 +51,7 @@ export function ProductCard({
                   objectFit="cover"
                   className="rounded-lg"
                   alt="product"
+                  sizes="100vw"
                 />
               </div>
             </CarouselItem>
@@ -72,10 +73,10 @@ export function ProductCard({
 
       <Button
         asChild
-        className="w-full mt-5 transition-all ease-in hover:scale-105"
+        className="w-[90%] mx-auto flex items-center justify-center mt-5 mb-4 transition-all ease-in hover:scale-105 hover:drop-shadow-xl"
       >
         <Link href={`/product/${id}`} className="text-xl">
-          Learn more <SquareArrowOutUpRight size={20} className="ml-2" />
+          Learn more <SquareArrowOutUpRight size={20} className="ml-2"/>
         </Link>
       </Button>
     </div>

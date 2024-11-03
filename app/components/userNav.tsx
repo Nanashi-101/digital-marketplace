@@ -21,6 +21,7 @@ import {
 import Link from "next/link";
 import { ModeToggle } from "./modeToggler";
 import { navLinks } from "../lib/data";
+import SearchBar from "./searchBar";
 
 interface iUserProps {
   email: string;
@@ -44,7 +45,7 @@ function UserNav({ email, username, userImg }: iUserProps) {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72" align="end">
+      <DropdownMenuContent className="w-72" loop align="end" side="bottom">
         <DropdownMenuLabel className="font-normal">
           <div className="flex justify-between items-center ">
             <div className="flex flex-col space-y-1">
@@ -61,6 +62,10 @@ function UserNav({ email, username, userImg }: iUserProps) {
             <ModeToggle />
           </div>
         </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup className="md:hidden px-2 my-4">
+          <SearchBar />
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem
@@ -100,18 +105,21 @@ function UserNav({ email, username, userImg }: iUserProps) {
           </div>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuSeparator className="block sm:hidden" />
-        <DropdownMenuLabel className="block sm:hidden text-center font-semibold text-md bg-primary/10 rounded-lg ">Categories</DropdownMenuLabel>
-        <DropdownMenuGroup className="block sm:hidden mt-2 mb-6">
+        <DropdownMenuSeparator className="" />
+        <DropdownMenuLabel className="text-center font-semibold text-md bg-primary/10 rounded-lg ">
+          Categories
+        </DropdownMenuLabel>
+        <DropdownMenuGroup className="mt-2 mb-6">
           {navLinks.map((link) => (
-              <DropdownMenuItem asChild key={link.id}>
-                <Link
-                  href={link.url}
-                  className="text-muted-foreground hover:text-black font-medium"
-                >
-                  {link.icon}{link.name}
-                </Link>
-              </DropdownMenuItem>
+            <DropdownMenuItem asChild key={link.id}>
+              <Link
+                href={link.url}
+                className="text-muted-foreground hover:text-black font-medium"
+              >
+                {link.icon}
+                {link.name}
+              </Link>
+            </DropdownMenuItem>
           ))}
         </DropdownMenuGroup>
         <div className="flex gap-x-3">

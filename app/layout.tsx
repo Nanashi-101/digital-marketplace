@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "./components/themeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Footer from "./components/footer";
+import DevProjectBar from "./components/devProjectBar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -50,10 +51,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-[100%] box-border">
       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${varelaRound.variable} ${pacifico.variable} ${roboto.variable} antialiased`}
+        className={`relative min-h-[100%] mb-0 pb-16 ${geistSans.variable} ${geistMono.variable} ${varelaRound.variable} ${pacifico.variable} ${roboto.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -62,6 +63,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
+            <DevProjectBar/>
             <Navbar />
             {children}
             <Footer/>
