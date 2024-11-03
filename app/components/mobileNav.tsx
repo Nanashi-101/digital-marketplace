@@ -2,53 +2,63 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetFooter,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   LoginLink,
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Menu } from "lucide-react";
+import { AlignJustify, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "../lib/data";
 import { ModeToggle } from "./modeToggler";
-import Image from "next/image";
-import logo from "@/public/Logo1.png";
-import {
-  DropdownMenu,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+import { GetSearchedProduct, SearchState } from "../actions";
+import { useFormState } from "react-dom";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
+import SearchBar from "./searchBar";
 
 async function MobileNav() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  // const initialState: SearchState = { message: "", status: undefined };
+  // const [state, formAction] = useFormState(GetSearchedProduct, initialState);
+
+  // useEffect(() => {
+  //   if (state.status === "success") {
+  //     toast.success(state.message);
+  //     redirect(`/product/${state.id}`);
+  //   } else if (state.status === "error") {
+  //     toast.error(state.message);
+  //   }
+  // }, [state]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="p-2 rounded-full">
-          <Menu size={24} />
+        <Button variant="default" className="p-2 rounded-full">
+          <AlignJustify size={24} />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end">
+      <DropdownMenuContent className="w-56 md:w-32" align="end">
         <DropdownMenuGroup>
-            <div className="w-full px-2 flex items-center justify-between gap-x-2">
-              <h1 className="text-xl font-bold roboto tracking-tight">
-                Chroma
-                <span className="text-2xl text-[#F97316] font-bold roboto">
-                  UI
-                </span>
-              </h1>
-              <ModeToggle />
-            </div>
+          <div className="w-full px-2 md:hidden flex items-center justify-between gap-x-2">
+            <h1 className="text-xl font-bold roboto tracking-tight">
+              Chroma
+              <span className="text-2xl text-[#F97316] font-bold roboto">
+                UI
+              </span>
+            </h1>
+            <ModeToggle />
+          </div>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup className="md:hidden px-2 my-4">
+            <SearchBar/>
+          </DropdownMenuGroup>
           <DropdownMenuSeparator />
           {navLinks.map((link) => (
             <DropdownMenuItem asChild key={link.id}>
@@ -64,7 +74,7 @@ async function MobileNav() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup className="my-4">
-          <div className="flex items-center justify-center gap-x-2">
+          <div className="md:hidden flex items-center justify-center gap-x-2">
             <Button variant={"outline"} asChild className="ml-3">
               <LoginLink>Log in</LoginLink>
             </Button>

@@ -41,10 +41,10 @@ function SellForm() {
   return (
     <form action={formAction}>
       <CardHeader>
-        <CardTitle className="text-4xl font-semibold tracking-norma; roboto">
+        <CardTitle className="text-2xl sm:text-4xl font-semibold tracking-normal roboto">
           Create Your Perfect Product Today!
         </CardTitle>
-        <CardDescription className="text-xl tracking-tight leading-none roboto">
+        <CardDescription className="text-sm sm:text-xl tracking-tight leading-none roboto">
           Create your custom product and bring your ideas to life with just a
           few clicks!
         </CardDescription>
@@ -150,7 +150,7 @@ function SellForm() {
           )}
         </div>
       </CardContent>
-      <CardFooter className="mt-6 flex justify-center w-[80%] mx-auto">
+      <CardFooter className="mt-6 flex justify-center w-full sm:w-[80%] mx-auto">
         <ButtonFull title="Create your product" />
       </CardFooter>
     </form>

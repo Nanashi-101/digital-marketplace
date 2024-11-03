@@ -12,8 +12,9 @@ import { ModeToggle } from "./modeToggler";
 import NavbarLinks from "./navbarLinks";
 import UserNav from "./userNav";
 import prisma from "../lib/db";
+import SearchBar from "./searchBar";
 
-async function getUserData(){
+async function getUserData() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   if (user) {
@@ -38,7 +39,7 @@ async function Navbar() {
 
   return (
     // This is gonna be a new way to create a navbar for me in the future
-    <nav className="relative max-w-7xl w-full flex md:grid md:grid-cols-12 md:justify-between items-center px-4 mx-auto py-7">
+    <nav className="relative max-w-7xl w-full flex md:grid md:grid-cols-12 md:justify-between items-center px-4 md:px-8 mx-auto py-7">
       {/* This is the first part of the nav it takes upto 3 columns */}
       <div className="md:col-span-3">
         <Link href="/" className="flex items-center justify-center gap-2">
@@ -50,7 +51,11 @@ async function Navbar() {
         </Link>
       </div>
       {/* This is the second part of the nav it takes upto 6 columns. Built as a separate component for readability */}
-      <NavbarLinks />
+      {/* <NavbarLinks /> */}
+
+      <div className="w-[80%] relative md:translate-x-10 mx-auto col-span-6 md:flex items-center justify-center hidden">
+        <SearchBar />
+      </div>
       {/* This is the Third part of the nav it also takes upto 3 columns */}
       <div className="flex item-center gap-x-2 ms-auto md:col-span-3">
         {user ? (
@@ -68,6 +73,9 @@ async function Navbar() {
           <>
             <div className="hidden md:flex gap-x-2">
               <ModeToggle />
+              <div className="flex items-center">
+                <MobileNav />
+              </div>
               <Button variant={"outline"} asChild className="ml-3">
                 <LoginLink>Log in</LoginLink>
               </Button>
@@ -75,7 +83,7 @@ async function Navbar() {
                 <RegisterLink>Sign up</RegisterLink>
               </Button>
             </div>
-            <div className="md:hidden flex items-center" id="mobileNav">
+            <div className="md:hidden flex items-center">
               <MobileNav />
             </div>
           </>

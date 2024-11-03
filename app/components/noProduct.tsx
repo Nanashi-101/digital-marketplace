@@ -3,7 +3,7 @@ import React from "react";
 
 function NoProduct({text} : {text: string}) {
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 text-center">
+    <div className="max-w-lg mx-auto px-4 md:px-8 text-center flex flex-col items-center justify-center">
       <h1 className="text-sm sm:text-lg w--[80%] sm:w-[70%] mx-auto bg-primary/10 px-4 py-2 rounded-lg text-muted-foreground/40 tracking-tighter">
         No {text} Found
       </h1>

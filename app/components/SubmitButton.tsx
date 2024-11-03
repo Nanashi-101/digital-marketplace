@@ -36,7 +36,7 @@ function ButtonSmall({ title }: { title: string }) {
       ) : (
         <Button
           type="submit"
-          className="text-lg transition-all ease-linear hover:scale-105"
+          className="text-lg transition-all ease-linear hover:scale-105 hover:drop-shadow-lg"
         >
           {title}
         </Button>
@@ -51,10 +51,14 @@ function BuyButton({price, currency}: {price: number, currency: string}) {
     <>
       {pending ? (
         <Button disabled className="w-full text-lg mt-6" size="lg">
-          <Loader2 className="ml-2 h-4 w-4 animate-spin" />{" "}Loading...
+          <Loader2 className="ml-2 h-4 w-4 animate-spin" /> Loading...
         </Button>
       ) : (
-        <Button type="submit" className="w-full mt-6" size={"lg"}>
+        <Button
+          type="submit"
+          className="w-full mt-6 transition-all ease-linear hover:scale-105 hover:drop-shadow-lg"
+          size={"lg"}
+        >
           Buy for {currency}
           {""}
           {price}

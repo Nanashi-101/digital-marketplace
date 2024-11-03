@@ -34,8 +34,19 @@ async function MyProductRoute() {
 
   if (!user) throw new Error("User not found");
   return (
-    <section className="max-w-6xl mx-auto px-4 md:px-8 mb-16">
-      <h1 className="text-xl lg:text-5xl text-center w-full mx-auto my-5 font-bold text-primary varela">My Products</h1>
+    <section className="max-w-7xl pb-16 sm:pb-none mx-auto px-4 md:px-8 mb-16">
+      <div className="mt-4 mb-10">
+        <h1 className="text-md sm:my-3 sm:text-3xl lg:text-5xl font-bold w-full mx-auto text-center">
+          Find all your <span className="text-primary">Products</span> in one
+          place
+        </h1>
+        <p className="text-sm lg:text-lg text-muted-foreground mx-auto mt-5 sm:w-[60%] font-normal text-center">
+          Here you can find all the products you have uploaded to the platform.
+        </p>
+      </div>
+      <h1 className="text-xl lg:text-3xl font-extrabold tracking-tighter roboto my-5">
+        My Products
+      </h1>
       {data.length ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-10 mt-6 w-[90%]">
           {data.map((product) => (

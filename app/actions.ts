@@ -11,6 +11,15 @@ export type State = {
   message?: string | null;
 };
 
+export type SearchState = {
+  status: "error" | "success" | undefined;
+  errors?: {
+    [key: string]: string[];
+  };
+  message?: string | null;
+  id?: string | null | "not found";
+};
+
 import { z } from "zod"; // Import the zod library
 import prisma from "./lib/db";
 import { categoryTypes } from "@prisma/client";
@@ -205,7 +214,7 @@ export const BuyProduct = async (formData: FormData) => {
         quantity: 1,
       },
     ],
-    metadata:{
+    metadata: {
       link: data?.productFile as string,
     },
     payment_intent_data: {
@@ -279,3 +288,54 @@ export async function GetStripeDashBoard() {
 
   return redirect(loginLink.url as string);
 }
+
+// Creating the action for the search functionality
+
+const searchSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Search query should have a min length of 3" }),
+});
+
+export const GetSearchedProduct = async (prevSate: any, formData: FormData) => {
+  const validateFields = searchSchema.safeParse({
+    name: formData.get("search") as string,
+  });
+
+  if (!validateFields.success) {
+    const state: SearchState = {
+      status: "error",
+      errors: validateFields.error.flatten().fieldErrors,
+      message: "Something went wrong",
+    };
+
+    return state;
+  }
+
+  const data = await prisma.product.findMany({
+    where: {
+      name: validateFields.data.name,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if(data.length === 0) {
+    const state: SearchState = {
+      status: "error",
+      message: "Product not found",
+      id: "not found",
+    };
+
+    return state;
+  }
+
+  const state: SearchState = {
+    status: "success",
+    message: "Product found",
+    id: data[0]?.id,
+  };
+
+  return state;
+};

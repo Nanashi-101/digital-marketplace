@@ -34,7 +34,7 @@ async function SettingsPage() {
 
   if(!user) throw new Error("User not found");
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-8">
+    <section className="max-w-7xl mx-auto px-4 md:px-8 pb-16 sm:pb-none">
       <Card>
         <ProfileForm email={data?.email as string} firstName={data?.firstName as string} lastName={data?.lastName as string}/>
       </Card>

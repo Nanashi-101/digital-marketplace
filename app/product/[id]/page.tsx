@@ -47,7 +47,7 @@ async function ProductIdPage({ params }: { params: { id: string } }) {
   noStore();
   const data = await getProduct(params.id);
   return (
-    <section className="max-w-7xl mx-auto px-4 lg:px-8 lg:grid lg:grid-row-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
+    <section className="max-w-7xl mx-auto px-4 lg:px-8 lg:grid lg:grid-row-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16 mb-16">
       <Carousel
         className="lg:row-end-1 lg:col-span-4"
         opts={{
@@ -74,7 +74,7 @@ async function ProductIdPage({ params }: { params: { id: string } }) {
         <CarouselPrevious className="ml-16" />
         <CarouselNext className="mr-16" />
       </Carousel>
-      <div className="max-w-2xl mx-auto mt-5 lg:row-span-2 lg:max-w-none lg:mt-0 lg:row-end-2 lg:col-span-3 ">
+      <div className=" w-full px-4 mx-auto mt-5 lg:row-span-1 lg:max-w-none lg:mt-0 lg:col-span-3 ">
         <h1 className="text-2xl font-extrabold roboto tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
           {data?.name}
         </h1>
