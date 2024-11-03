@@ -9,34 +9,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   LoginLink,
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
-import { AlignJustify, SearchIcon } from "lucide-react";
+import { AlignJustify } from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "../lib/data";
 import { ModeToggle } from "./modeToggler";
-import { GetSearchedProduct, SearchState } from "../actions";
-import { useFormState } from "react-dom";
-import { useEffect } from "react";
-import { toast } from "sonner";
-import { redirect } from "next/navigation";
 import SearchBar from "./searchBar";
 
 async function MobileNav() {
-  // const initialState: SearchState = { message: "", status: undefined };
-  // const [state, formAction] = useFormState(GetSearchedProduct, initialState);
-
-  // useEffect(() => {
-  //   if (state.status === "success") {
-  //     toast.success(state.message);
-  //     redirect(`/product/${state.id}`);
-  //   } else if (state.status === "error") {
-  //     toast.error(state.message);
-  //   }
-  // }, [state]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -55,11 +38,11 @@ async function MobileNav() {
             </h1>
             <ModeToggle />
           </div>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="md:hidden block" />
           <DropdownMenuGroup className="md:hidden px-2 my-4">
-            <SearchBar/>
+            <SearchBar />
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="md:hidden block" />
           {navLinks.map((link) => (
             <DropdownMenuItem asChild key={link.id}>
               <Link
@@ -72,7 +55,7 @@ async function MobileNav() {
             </DropdownMenuItem>
           ))}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="md:hidden block" />
         <DropdownMenuGroup className="my-4">
           <div className="md:hidden flex items-center justify-center gap-x-2">
             <Button variant={"outline"} asChild className="ml-3">
