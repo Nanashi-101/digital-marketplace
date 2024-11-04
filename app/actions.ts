@@ -25,6 +25,8 @@ import prisma from "./lib/db";
 import { categoryTypes } from "@prisma/client";
 import { stripe } from "./lib/stripe";
 import { redirect } from "next/navigation";
+import { Resend } from "resend";
+import FeedbackMail from "./components/FeedbackMail";
 
 // * This is the start of the product validation and submission action file.
 
@@ -321,7 +323,7 @@ export const GetSearchedProduct = async (prevSate: any, formData: FormData) => {
     },
   });
 
-  if(data.length === 0) {
+  if (data.length === 0) {
     const state: SearchState = {
       status: "error",
       message: "Product not found",
@@ -335,6 +337,71 @@ export const GetSearchedProduct = async (prevSate: any, formData: FormData) => {
     status: "success",
     message: "Product found",
     id: data[0]?.id,
+  };
+
+  return state;
+};
+
+// * Creating the server action for feedback form submission
+const feedbackSchema = z.object({
+  name: z.string().min(3, { message: "Name should have a min length of 3" }),
+  email: z.string().email({ message: "Please enter a valid email" }),
+  rating: z
+    .number()
+    .min(1, { message: "Please rate us" })
+    .max(10, { message: "Please rate us" }),
+  feedback: z.string().min(4, { message: "Please write a feedback more than 1 letter" }),
+  consent: z.string().min(1, { message: "Please agree to the terms" }),
+});
+
+export const HandleFeedback = async (prevSate: any, formData: FormData) => {
+  const validateFields = feedbackSchema.safeParse({
+    name: formData.get("name") as string,
+    email: formData.get("email") as string,
+    rating: Number(formData.get("rating")),
+    feedback: formData.get("feedback") as string,
+    consent: formData.get("consent") as string,
+  });
+
+  if (!validateFields.success) {
+    const JSONMessage = JSON.stringify(validateFields.error.flatten().fieldErrors.feedback);
+    const state: State = {
+      status: "error",
+      errors: validateFields.error.flatten().fieldErrors,
+      message:
+        "Something went wrong. " +
+        validateFields.error.flatten().fieldErrors.feedback,
+    };
+
+    return state;
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  try {
+    const {data, error} =await resend.emails.send(
+      {
+        from: "ChromaUI <onboarding@resend.dev>",
+        to: [validateFields.data.email as string],
+        subject: "Welcome to ChromaUI - Here's a copy of your feedback",
+        react: FeedbackMail({
+          name: validateFields.data.name,
+          feedback: validateFields.data.feedback,
+          rating: validateFields.data.rating,
+        }),
+      });
+  } catch (error) {
+    const state: State = {
+      status: "error",
+      message: "Something went wrong while sending the email",
+    };
+
+    return state;
+  }
+
+  const state: State = {
+    status: "success",
+    message: "Feedback submitted",
   };
 
   return state;
