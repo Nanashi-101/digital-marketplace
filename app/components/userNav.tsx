@@ -63,21 +63,21 @@ function UserNav({ email, username, userImg }: iUserProps) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup className="md:hidden px-2 my-4">
+        <DropdownMenuGroup className="md:hidden px-2">
           <SearchBar />
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem
             asChild
-            className="bg-primary/10 font-semibold p-3 text-md flex items-center"
+            className="bg-primary/10 font-semibold p-2 text-md flex items-center"
           >
             <Link href="/sell">
               <ShoppingBagIcon size={"50px"} />
               Add a product
             </Link>
           </DropdownMenuItem>
-          <div className="my-2">
+          <div className="">
             <DropdownMenuItem asChild>
               <Link
                 href="/profile"
@@ -109,7 +109,7 @@ function UserNav({ email, username, userImg }: iUserProps) {
         <DropdownMenuLabel className="text-center font-semibold text-md bg-primary/10 rounded-lg ">
           Categories
         </DropdownMenuLabel>
-        <DropdownMenuGroup className="mt-2 mb-6">
+        <DropdownMenuGroup className="mb-3">
           {navLinks.map((link) => (
             <DropdownMenuItem asChild key={link.id}>
               <Link
@@ -123,7 +123,7 @@ function UserNav({ email, username, userImg }: iUserProps) {
           ))}
         </DropdownMenuGroup>
         <div className="flex gap-x-3">
-          <Button className="w-[80%] mb-4 flex items-center mx-auto hover:scale-105 transition-all ease-out">
+          <Button className="w-[80%] mb-2 flex items-center mx-auto hover:scale-105 transition-all ease-out">
             <LogoutLink className="flex items-center gap-2">
               Log out
               <LogOutIcon size={15} />
