@@ -10,7 +10,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   LoginLink,
   RegisterLink,
@@ -19,11 +18,6 @@ import { AlignJustify, Boxes, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { navLinks } from "../lib/data";
 import { ModeToggle } from "./modeToggler";
-import { GetSearchedProduct, SearchState } from "../actions";
-import { useFormState } from "react-dom";
-import { useEffect } from "react";
-import { toast } from "sonner";
-import { redirect } from "next/navigation";
 import SearchBar from "./searchBar";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
