@@ -61,7 +61,7 @@ async function MobileNav() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         {!user ? (
-          <DropdownMenuGroup className="mt-4">
+          <DropdownMenuGroup className="mt-4 mb-4">
             <div className="md:hidden flex items-center justify-center gap-x-2">
               <Button variant={"outline"} asChild className="ml-3">
                 <LoginLink>Log in</LoginLink>
