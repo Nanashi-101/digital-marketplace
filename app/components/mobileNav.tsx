@@ -5,21 +5,20 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {
   LoginLink,
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
-import { AlignJustify, Boxes, SearchIcon } from "lucide-react";
-import Link from "next/link";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { Boxes } from "lucide-react";
 import { navLinks } from "../lib/data";
 import { ModeToggle } from "./modeToggler";
+import NavbarLink from "./navbarLinks";
 import SearchBar from "./searchBar";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 async function MobileNav() {
   const { getUser } = getKindeServerSession();
@@ -52,25 +51,17 @@ async function MobileNav() {
           <></>
         )}
         <DropdownMenuSeparator className="" />
-        <DropdownMenuLabel className="text-center font-semibold text-md bg-primary/10 rounded-lg ">
+        <DropdownMenuLabel className="text-center font-semibold text-md bg-primary/20 rounded-lg ">
           Categories
         </DropdownMenuLabel>
-        <DropdownMenuGroup className="mt-2 mb-6">
+        <DropdownMenuGroup className="mt-2">
           {navLinks.map((link) => (
-            <DropdownMenuItem asChild key={link.id}>
-              <Link
-                href={link.url}
-                className="text-muted-foreground hover:text-black font-medium"
-              >
-                {link.icon}
-                {link.name}
-              </Link>
-            </DropdownMenuItem>
+            <NavbarLink key={link.id} link={link} />
           ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         {!user ? (
-          <DropdownMenuGroup className="my-4">
+          <DropdownMenuGroup className="mt-4">
             <div className="md:hidden flex items-center justify-center gap-x-2">
               <Button variant={"outline"} asChild className="ml-3">
                 <LoginLink>Log in</LoginLink>

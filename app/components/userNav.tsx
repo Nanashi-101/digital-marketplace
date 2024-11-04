@@ -50,7 +50,7 @@ function UserNav({ email, username, userImg }: iUserProps) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex justify-between items-center ">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{username}</p>
+              <p className="text-[0.975rem] font-medium leading-none">{username}</p>
               <p className="text-xs leading-none text-muted-foreground">
                 <span className="text-[#F9802D] font-bold">@</span>
                 {email
@@ -67,11 +67,11 @@ function UserNav({ email, username, userImg }: iUserProps) {
         <DropdownMenuGroup className="md:hidden px-2">
           <SearchBar />
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
+        <DropdownMenuSeparator className="my-2" />
+        <DropdownMenuGroup className="my-3">
           <DropdownMenuItem
             asChild
-            className="bg-primary/10 font-semibold p-2 text-md flex items-center"
+            className="bg-primary/10 mt-4 mb-5 font-semibold p-3 text-md flex items-center"
           >
             <Link href="/sell">
               <ShoppingBagIcon size={"50px"} />
@@ -113,7 +113,7 @@ function UserNav({ email, username, userImg }: iUserProps) {
             </DropdownMenuItem>
           </div>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="my-2"/>
         <div className="flex gap-x-3">
           <Button className="w-[80%] mb-2 flex items-center mx-auto hover:scale-105 transition-all ease-out">
             <LogoutLink className="flex items-center gap-2">
