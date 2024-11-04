@@ -44,9 +44,9 @@ async function Navbar() {
       <div className="md:col-span-3">
         <Link href="/" className="flex items-center justify-center gap-2">
           <Image src={logo} alt="Chroma UI Logo" width={70} height={70} />
-          <h1 className="text-3xl font-bold roboto tracking-tight">
+          <h1 className="text-xl sm:text-3xl font-bold roboto tracking-tight">
             Chroma
-            <span className="text-4xl text-[#F97316] font-bold roboto">UI</span>
+            <span className="text-2xl sm:text-4xl text-[#F97316] font-bold roboto">UI</span>
           </h1>
         </Link>
       </div>
@@ -59,7 +59,8 @@ async function Navbar() {
       {/* This is the Third part of the nav it also takes upto 3 columns */}
       <div className="flex item-center gap-x-2 ms-auto md:col-span-3">
         {user ? (
-          <div className="flex items-center gap-5">
+          <div className="flex items-center sm:gap-2">
+            <MobileNav/>
             <UserNav
               email={user.email as string}
               username={`${user.firstName}` as string}

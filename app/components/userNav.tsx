@@ -13,6 +13,7 @@ import {
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import {
   LogOutIcon,
+  MessagesSquare,
   ScanFace,
   ShoppingBagIcon,
   ShoppingBasketIcon,
@@ -34,7 +35,7 @@ function UserNav({ email, username, userImg }: iUserProps) {
     <DropdownMenu>
       <DropdownMenuTrigger
         asChild
-        className="ml-8 translate-x-2 sm:translate-x-0"
+        className="sm:ml-5 translate-x-2 sm:translate-x-0"
       >
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10">
@@ -102,26 +103,17 @@ function UserNav({ email, username, userImg }: iUserProps) {
                 <Wallet /> Billing
               </Link>
             </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href="/feedback"
+                className="text-muted-foreground hover:text-black font-medium"
+              >
+                <MessagesSquare /> Feedback
+              </Link>
+            </DropdownMenuItem>
           </div>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuSeparator className="" />
-        <DropdownMenuLabel className="text-center font-semibold text-md bg-primary/10 rounded-lg ">
-          Categories
-        </DropdownMenuLabel>
-        <DropdownMenuGroup className="mb-3">
-          {navLinks.map((link) => (
-            <DropdownMenuItem asChild key={link.id}>
-              <Link
-                href={link.url}
-                className="text-muted-foreground hover:text-black font-medium"
-              >
-                {link.icon}
-                {link.name}
-              </Link>
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuGroup>
         <div className="flex gap-x-3">
           <Button className="w-[80%] mb-2 flex items-center mx-auto hover:scale-105 transition-all ease-out">
             <LogoutLink className="flex items-center gap-2">
