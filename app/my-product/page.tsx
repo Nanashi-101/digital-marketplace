@@ -1,12 +1,12 @@
 import React from "react";
 import prisma from "../lib/db";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { ProductCard } from "../components/productCard";
+import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
+import {ProductCard} from "../components/productCard";
 import NoProduct from "../components/noProduct";
-import { unstable_noStore as noStore } from "next/cache";
+import {unstable_noStore as noStore} from "next/cache";
 
 async function getData(userId: string) {
-  const data = await prisma.product.findMany({
+  return prisma.product.findMany({
     where: {
       userId: userId,
     },
@@ -21,8 +21,6 @@ async function getData(userId: string) {
       category: true,
     },
   });
-
-  return data;
 }
 
 async function MyProductRoute() {
