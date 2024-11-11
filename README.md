@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CHorma UI - A Digital Marketplace
 
-## Getting Started
+![Chroma UI - Digital Marketplace]([./public/banner.png](https://github.com/user-attachments/assets/9d9aac12-1a38-4012-ac7e-540002caf1d3)) 
 
-First, run the development server:
+A modern **full-stack e-commerce platform** built with cutting-edge technologies to deliver a seamless online shopping experience. This application leverages **Next.js**, **React**, **TypeScript**, and other powerful tools to ensure robustness, efficiency, and scalability.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+- **Responsive UI**: Built with Tailwind CSS for a fully responsive and consistent design.
+- **State Management**: Efficient state management using Zustand.
+- **Real-time Data Fetching**: Uses React Query for optimized data fetching and caching.
+- **Secure Payments**: Integrated with Stripe for smooth and secure payment processing.
+- **Content Management**: Features Payload CMS for easy content management by merchants.
+- **API Layer**: Backend API using Express and tRPC for seamless data flow.
+- **Supabase Integration**: NoSQL database for flexible data storage.
+- **Authentication & Authorization**: Built-in user authentication and role-based access control.
+- **Product Carousels & Sliders**: Utilizes Swiper for enhanced product displays.
+- **Email Notifications**: Integrated with React-email and Nodemailer for transactional emails.
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
+- **Backend**: Node.js, Supabase, Prisma, Kinde Auth 
+- **APIs**: tRPC, Stripe API, Nodemailer
+- **Utilities**: Zustand, React-hook-forms, Zod for data validation, React Query for caching
+- **Other Libraries**: Shadcn-ui, Lucide-react, Resend for email retries, Swiper for UI components
+
+## 📦 Installation
+
+### Prerequisites
+- **Node.js** (version 18+)
+- **Supabase** (running of EU server hosted by Supabase team)
+
+### Steps
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Nanashi-101/digital-marketplace.git
+   cd digital-marketplace
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**: Create a `.env` file based on the `.env.example` provided.
+   ```env
+   NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   STRIPE_WEBHOOK_SECRET=your_webhook_secret
+   ```
+
+4. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser** at `http://localhost:3000`.
+
+## 🔧 Environment Variables
+
+Ensure you have the following variables in your `.env` file:
+
+```env
+NEXT_PUBLIC_SERVER_URL=
+STRIPE_SECRET_KEY=
+EMAIL=
+RESEND_API_KEY=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Access the platform** via `[Chroma UI](https://chroma-ui-ecru.vercel.app)`.
+- **Admin CMS** is available at `/sell` (or another route you define).
+- **Browse and shop** products with seamless UX and secure transactions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📤 Deployment
 
-## Learn More
+Easily deploy on **Vercel**:
+1. Connect your GitHub repository to Vercel.
+2. Set up environment variables in Vercel's dashboard.
+3. Deploy with one click.
 
-To learn more about Next.js, take a look at the following resources:
+## 📚 Learn More
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Stripe API Docs](https://stripe.com/docs/api)
+- [Payload CMS](https://payloadcms.com/docs)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🤝 Contributions
 
-## Deploy on Vercel
+Contributions are welcome! Feel free to open issues, suggest features, or submit pull requests.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the **MIT License**.
