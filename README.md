@@ -1,6 +1,6 @@
 # CHorma UI - A Digital Marketplace
 
-![Chroma UI - Digital Marketplace]([./public/banner.png](https://github.com/user-attachments/assets/9d9aac12-1a38-4012-ac7e-540002caf1d3)) 
+![Chorma UI - A Digital Marketplace](https://github.com/user-attachments/assets/9d9aac12-1a38-4012-ac7e-540002caf1d3) 
 
 A modern **full-stack e-commerce platform** built with cutting-edge technologies to deliver a seamless online shopping experience. This application leverages **Next.js**, **React**, **TypeScript**, and other powerful tools to ensure robustness, efficiency, and scalability.
 
