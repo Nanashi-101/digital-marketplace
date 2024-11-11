@@ -1,4 +1,4 @@
-# CHorma UI - A Digital Marketplace
+# Chroma UI - A Digital Marketplace
 
 ![Chorma UI - A Digital Marketplace](https://github.com/user-attachments/assets/9d9aac12-1a38-4012-ac7e-540002caf1d3) 
 
