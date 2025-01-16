@@ -1,3 +1,5 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -5,19 +7,34 @@ import * as motion from "motion/react-client";
 import prisma from "../lib/db";
 import ImageCarousel from "./ImageCarousel";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { $Enums } from "@prisma/client";
+import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
-async function DynamicProductCard() {
-  const data = await prisma.product.findMany({
-    select: {
-      id: true,
-      name: true,
-      price: true,
-      currency: true,
-      smallDescription: true,
-      images: true,
-      category: true,
-    },
-  });
+interface IAprops{
+    id: string,
+    name: string,
+    price: number,
+    currency: string,
+    smallDescription: string,
+    images: string[],
+    category: $Enums.categoryTypes
+}
+
+const handleNext = () => {
+  const elem = document.getElementById("next-btn");
+  if (elem) {
+    elem.click();
+  }
+};
+
+const handlePrev = () => {
+  const elem = document.getElementById("prev-btn");
+  if (elem) {
+    elem.click();
+  }
+}
+
+function DynamicProductCard(data: IAprops) {
   return (
     <motion.div
       className="relative max-w-2xl w-full ml-[20rem]  pb-16 sm:pb-none md:px-8 md:mb-16"
@@ -41,12 +58,12 @@ async function DynamicProductCard() {
             animate={{ x: 0 }}
             transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
           >
-            <ImageCarousel data={data[3]} />
+            <ImageCarousel data={data} />
             <motion.div
               className="absolute -left-[3rem] top-[18.5rem] w-[100px] h-2 bg-[#F97316] rounded-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1.1, delay: 1.4 }}
+              transition={{ duration: 1.1, delay: 1.5 }}
             />
           </motion.div>
           <motion.div
@@ -56,19 +73,17 @@ async function DynamicProductCard() {
             transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
           >
             <h1 className="text-5xl font-extrabold text-primary">
-              {data[3].name}
+              {data.name}
             </h1>
             <div className="flex uppercase items-center justify-start gap-5">
-              <div
-                className="w-[5px] h-[30px] bg-[#F97316] rounded-lg"
-              />
+              <div className="w-[5px] h-[30px] bg-[#F97316] rounded-lg" />
               <p className="text-2xl font-bold">
-                {data[3].price} {data[3].currency}
+                {data.price} {data.currency}
               </p>
-              <Badge>{data[3].category}</Badge>
+              <Badge>{data.category}</Badge>
             </div>
             <p className="text-lg line-clamp-3 font-semibold text-muted-foreground dark:text-muted-foreground">
-              {data[3].smallDescription}
+              {data.smallDescription}
             </p>
           </motion.div>
         </CardContent>
@@ -79,26 +94,40 @@ async function DynamicProductCard() {
         animate={{ y: 0 }}
         transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
       >
-        <Button className="w-[230px] transition-all ease-in hover:scale-105 h-12 text-xl">
+        <Button
+          className="w-[230px] transition-all ease-in hover:scale-105 h-12 text-xl"
+        >
           Buy Now
         </Button>
       </motion.div>
-      <div className="absolute -top-[1.69rem] right-14 flex gap-2 p-2">
+      <div className="absolute -top-[1.69rem] right-16 flex gap-2 p-2">
         <motion.span
           className="bg-[#F97316] rounded-sm p-1 text-white cursor-pointer"
           initial={{ x: -20 }}
           animate={{ x: 0 }}
           transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+          onClick={handlePrev}
         >
           <ArrowLeft size={32} />
+          <CarouselPrevious
+            className="hidden bg-[#F97316] rounded-sm p-1 text-white -left-[2rem]"
+            size="icon"
+            id="prev-btn"
+          />
         </motion.span>
         <motion.span
           className="bg-[#F97316] rounded-sm p-1 text-white cursor-pointer"
           initial={{ x: 20 }}
           animate={{ x: 0 }}
           transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+          onClick={handleNext}
         >
           <ArrowRight size={32} />
+          <CarouselNext
+            className="hidden bg-[#F97316] rounded-sm p-1 text-white right-[4.5rem] text-xl"
+            size="icon"
+            id="next-btn"
+          />
         </motion.span>
       </div>
     </motion.div>

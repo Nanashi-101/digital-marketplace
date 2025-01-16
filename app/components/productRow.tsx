@@ -10,6 +10,7 @@ import {
 import React, { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import DynamicProductCard from "./ProdDynamicCard";
+import ProductCardSlider from "./ProductCardSlider";
 
 interface IAppProps {
   category: "newest" | "templates" | "Uikits" | "icons";
@@ -121,9 +122,9 @@ async function getData({ category }: IAppProps) {
 function ProductRow({ category }: IAppProps) {
   return (
     <Suspense fallback={<LoadingRowsState />}>
-      <section className="mt-20 ml-12">
+      <section className="mt-[3.75rem] ml-12">
         {/* <LoadRows category={category} /> */}
-        <DynamicProductCard />
+        <ProductCardSlider/>
       </section>
     </Suspense>
   );
