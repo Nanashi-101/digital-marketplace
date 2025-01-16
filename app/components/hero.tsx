@@ -26,7 +26,7 @@ function Hero({
       <div className="max-w-7xl mx-auto text-center roboto-900 font-extrabold my-4">
         {condition && (
           <motion.h1
-            className="text-[1.2rem] sm:text-3xl lg:text-6xl font-bold "
+            className="text-[1.2rem] sm:text-3xl lg:text-4xl xl:text-6xl font-bold "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.1, delay: 0.3 }}
@@ -38,7 +38,7 @@ function Hero({
         )}
         {condition ? (
           <motion.h1
-            className="text-md sm:my-3 sm:text-3xl lg:text-7xl font-bold"
+            className="text-md sm:my-3 sm:text-3xl lg:text-5xl xl:text-7xl font-bold"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.1, delay: 0.3 }}

@@ -20,20 +20,34 @@ async function DynamicProductCard() {
   });
   return (
     <motion.div
-      className="relative max-w-2xl w-full mx-auto  pb-16 sm:pb-none md:px-8 md:mb-16"
+      className="relative max-w-2xl w-full ml-[20rem]  pb-16 sm:pb-none md:px-8 md:mb-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.1, delay: 0.3 }}
     >
-      <Card className="relative shadow-2xl p-2 border dark:shadow-2xl dark:shadow-[#F97316] dark:drop-shadow-xl rounded-sm">
+      <motion.div
+        className="bg-[#ff8e47] absolute rounded-full -left-[8rem] top-10 w-[15.75rem] h-[15.75rem] blur-[4rem] dark:hidden"
+        initial={{ x: -100 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 1.1, delay: 0.4 }}
+      />
+      <Card
+        className={`relative shadow-2xl p-2 border dark:shadow-2xl dark:shadow-[#F97316] dark:drop-shadow-xl rounded-sm`}
+      >
         <CardContent className="grid grid-cols-3 items-center justify-center gap-5 py-10 px-1">
           <motion.div
-            className="col-span-1 w-[350px] rounded-lg"
+            className="col-span-1 w-[350px] rounded-lg flex flex-col items-center justify-center mx-auto gap-3"
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
           >
             <ImageCarousel data={data[3]} />
+            <motion.div
+              className="absolute -left-[3rem] top-[18.5rem] w-[100px] h-2 bg-[#F97316] rounded-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.1, delay: 1.4 }}
+            />
           </motion.div>
           <motion.div
             className="flex flex-col gap-8 col-span-2"
@@ -45,6 +59,9 @@ async function DynamicProductCard() {
               {data[3].name}
             </h1>
             <div className="flex uppercase items-center justify-start gap-5">
+              <div
+                className="w-[5px] h-[30px] bg-[#F97316] rounded-lg"
+              />
               <p className="text-2xl font-bold">
                 {data[3].price} {data[3].currency}
               </p>
@@ -54,14 +71,6 @@ async function DynamicProductCard() {
               {data[3].smallDescription}
             </p>
           </motion.div>
-          <div className="absolute top-2 right-3 flex gap-2 p-2">
-            <span className="bg-[#F97316] rounded-full p-1 text-white">
-              <ArrowLeft />
-            </span>
-            <span className="bg-[#F97316] rounded-full p-1 text-white">
-              <ArrowRight />
-            </span>
-          </div>
         </CardContent>
       </Card>
       <motion.div
@@ -74,6 +83,24 @@ async function DynamicProductCard() {
           Buy Now
         </Button>
       </motion.div>
+      <div className="absolute -top-[1.69rem] right-14 flex gap-2 p-2">
+        <motion.span
+          className="bg-[#F97316] rounded-sm p-1 text-white cursor-pointer"
+          initial={{ x: -20 }}
+          animate={{ x: 0 }}
+          transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+        >
+          <ArrowLeft size={32} />
+        </motion.span>
+        <motion.span
+          className="bg-[#F97316] rounded-sm p-1 text-white cursor-pointer"
+          initial={{ x: 20 }}
+          animate={{ x: 0 }}
+          transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+        >
+          <ArrowRight size={32} />
+        </motion.span>
+      </div>
     </motion.div>
   );
 }
