@@ -45,7 +45,8 @@ async function getProducts(category: string) {
   return data;
 }
 
-async function CustomProducts({ params }: { params: { category: string } }) {
+async function CustomProducts(props: { params: Promise<{ category: string }> }) {
+  const params = await props.params;
   noStore();
   const data = await getProducts(params.category);
 

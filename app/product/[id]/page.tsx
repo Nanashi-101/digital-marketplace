@@ -43,7 +43,8 @@ async function getProduct(id: string) {
   return data;
 }
 
-async function ProductIdPage({ params }: { params: { id: string } }) {
+async function ProductIdPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   noStore();
   const data = await getProduct(params.id);
   return (
