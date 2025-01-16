@@ -51,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-[100%] box-border">
+    <html lang="en" className="h-[100%] box-border" suppressHydrationWarning>
       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
       <body
         className={`relative min-h-[100%] mb-0 pb-16 ${geistSans.variable} ${geistMono.variable} ${varelaRound.variable} ${pacifico.variable} ${roboto.variable} antialiased`}
@@ -63,10 +63,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <DevProjectBar/>
+            <DevProjectBar />
             <Navbar />
             {children}
-            <Footer/>
+            <Footer />
             <Toaster richColors theme="light" closeButton />
           </TooltipProvider>
         </ThemeProvider>

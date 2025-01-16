@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/tooltip";
 import React, { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import DynamicProductCard from "./ProdDynamicCard";
 
 interface IAppProps {
   category: "newest" | "templates" | "Uikits" | "icons";
@@ -119,9 +120,10 @@ async function getData({ category }: IAppProps) {
 
 function ProductRow({ category }: IAppProps) {
   return (
-    <Suspense fallback={<LoadingRowsState/>}>
-      <section className="mt-12">
-        <LoadRows category={category} />
+    <Suspense fallback={<LoadingRowsState />}>
+      <section className="mt-20 ml-12">
+        {/* <LoadRows category={category} /> */}
+        <DynamicProductCard />
       </section>
     </Suspense>
   );
