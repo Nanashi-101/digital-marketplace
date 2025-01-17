@@ -9,6 +9,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "./components/themeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { hydrateRoot } from "react-dom/client";
 import Footer from "./components/footer";
 import DevProjectBar from "./components/devProjectBar";
 

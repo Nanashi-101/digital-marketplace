@@ -53,69 +53,131 @@ function DynamicProductCard(data: IAprops) {
 }
 
 function DynamicProductCardMobileScreen({ prodData }: { prodData: IAprops }) {
+  const handleNext = () => {
+    const elem = document.getElementById("next-btn");
+    if (elem) {
+      elem.click();
+    }
+  };
+
+  const handlePrev = () => {
+    const elem = document.getElementById("prev-btn");
+    if (elem) {
+      elem.click();
+    }
+  };
   const plugin = React.useRef(Autoplay({ delay: 3000 }));
   return (
-    (<div>
-      <Card className="shadow-2xl p-2 border dark:shadow-2xl dark:shadow-[#F97316] dark:drop-shadow-xl rounded-sm">
-        <CardContent className="grid grid-cols-1 grid-rows-3 items-center justify-center gap-1 py-10 px-1">
-          <div className="w-[350px] rounded-lg flex flex-col items-center justify-center mx-auto">
-            <Carousel
-              className="w-full mx-auto rounded-lg"
-              opts={{
-                loop: true,
-              }}
-              plugins={[plugin.current]}
-            >
-              <CarouselContent className="rounded-lg">
-                {prodData.images.map((image, index) => (
-                  <CarouselItem key={index} className="rounded-lg">
-                    <div className="h-[250px] relative">
-                      <Image
-                        src={image}
-                        className="rounded-lg"
-                        alt="product"
-                        fill
-                        sizes="100vw"
-                        style={{
-                          objectFit: "cover"
-                        }} />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-          </div>
-          <motion.div
-            className="flex flex-col gap-4 px-4"
+    <Card className="shadow-2xl p-2 border dark:drop-shadow-xl rounded-sm">
+      <CardContent className="grid grid-cols-1 grid-rows-2 items-center justify-center gap-1 py-4 px-1">
+        <motion.div
+          className="w-[360px] sm:w-[500px] rounded-lg flex flex-col items-center justify-center mx-auto"
+          initial={{ y: -200 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+        >
+          <Carousel
+            className="w-full mx-auto rounded-lg"
+            opts={{
+              loop: true,
+            }}
+            plugins={[plugin.current]}
+          >
+            <CarouselContent className="rounded-lg">
+              {prodData.images.map((image, index) => (
+                <CarouselItem key={index} className="rounded-lg">
+                  <div className="h-[250px] relative">
+                    <Image
+                      src={image}
+                      className="rounded-lg"
+                      alt="product"
+                      fill
+                      sizes="50vw"
+                      style={{
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </motion.div>
+        <div className="flex flex-col gap-4 px-4 mt-3">
+          <motion.h1
+            className="text-4xl roboto-900 font-bold text-primary"
             initial={{ x: 200 }}
             animate={{ x: 0 }}
             transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
           >
-            <h1 className="text-3xl font-bold text-primary">{prodData.name}</h1>
-            <div className="flex uppercase items-center justify-start gap-5">
+            {prodData.name}
+          </motion.h1>
+          <div className="flex uppercase items-center justify-between">
+            <motion.div
+              className="flex items-center justify-center  gap-2"
+              initial={{ x: 100 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+            >
               <div className="w-[5px] h-[30px] bg-[#F97316] rounded-lg" />
               <p className="text-xl font-bold">
                 {prodData.price} {prodData.currency}
               </p>
               <Badge>{prodData.category}</Badge>
-            </div>
-            <p className="text-md line-clamp-6 font-semibold text-muted-foreground dark:text-muted-foreground">
-              {prodData.smallDescription}
-            </p>
-          </motion.div>
-          <motion.div
-            className=""
-            initial={{ y: 200 }}
-            animate={{ y: 0 }}
+            </motion.div>
+            <motion.div
+              className="flex gap-2 p-2"
+              initial={{ x: 200 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+            >
+              <motion.span
+                className="bg-[#F97316] rounded-sm p-1 text-white cursor-pointer"
+                initial={{ x: -20 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 1.1, delay: 0.7, type: "spring" }}
+                onClick={handlePrev}
+              >
+                <ArrowLeft size={28} />
+                <CarouselPrevious
+                  className="hidden"
+                  size="icon"
+                  id="prev-btn"
+                />
+              </motion.span>
+              <motion.span
+                className="bg-[#F97316] rounded-sm p-1 text-white cursor-pointer"
+                initial={{ x: 20 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 1.1, delay: 0.7, type: "spring" }}
+                onClick={handleNext}
+              >
+                <ArrowRight size={28} />
+                <CarouselNext className="hidden" size="icon" id="next-btn" />
+              </motion.span>
+            </motion.div>
+          </div>
+          <motion.p
+            className="text-md line-clamp-6 font-semibold text-muted-foreground dark:text-muted-foreground"
+            initial={{ x: 200 }}
+            animate={{ x: 0 }}
             transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
           >
-            <Button className="w-[230px] mx-auto text-center transition-all ease-in hover:scale-105 text-xl">
-              Buy Now
-            </Button>
-          </motion.div>
-        </CardContent>
-      </Card>
-    </div>)
+            {prodData.smallDescription}
+          </motion.p>
+        </div>
+        <motion.div
+          className="mt-10 w-full mx-auto flex items-center justify-center"
+          initial={{ y: 200 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+        >
+          <Button className="w-[230px] mx-auto text-center transition-all ease-in hover:scale-105 text-xl">
+            Buy Now
+          </Button>
+        </motion.div>
+      </CardContent>
+    </Card>
   );
 }
 
