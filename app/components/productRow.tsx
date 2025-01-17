@@ -122,8 +122,7 @@ async function getData({ category }: IAppProps) {
 function ProductRow({ category }: IAppProps) {
   return (
     <Suspense fallback={<LoadingRowsState />}>
-      <section className="mt-[3.75rem] ml-12">
-        {/* <LoadRows category={category} /> */}
+      <section className="mt-[3.75rem]">
         <ProductCardSlider/>
       </section>
     </Suspense>

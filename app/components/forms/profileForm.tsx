@@ -1,4 +1,3 @@
-
 "use client";
 
 import { State, UpdateUserData } from "@/app/actions";
@@ -11,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useEffect } from "react";
+import { useActionState, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
 import { ButtonSmall } from "../SubmitButton";
@@ -24,17 +23,16 @@ interface IAppProps {
 
 function ProfileForm({ firstName, lastName, email }: IAppProps) {
   const initialState: State = { message: "", status: undefined };
-  const [state, formAction] = useFormState(UpdateUserData, initialState);
-  
-  useEffect(() =>{
-    if(state.status === "success"){
+  const [state, formAction] = useActionState(UpdateUserData, initialState);
+
+  useEffect(() => {
+    if (state.status === "success") {
       toast.success(state.message);
       window.location.reload();
+    } else if (state.status === "error") {
+      toast.error(state.message);
     }
-    else if(state.status === "error"){
-        toast.error(state.message);
-        }
-  },[state]);
+  }, [state]);
   return (
     <form action={formAction}>
       <CardHeader>
