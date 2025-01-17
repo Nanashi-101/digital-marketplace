@@ -6,7 +6,7 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import * as motion from "motion/react-client";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import prisma from "../lib/db";
 import MobileNav from "./mobileNav";
@@ -39,7 +39,7 @@ async function Navbar() {
 
   return (
     // This is gonna be a new way to create a navbar for me in the future
-    <motion.nav
+    (<motion.nav
       className="relative xl:max-w-[100rem] max-w-7xl w-full flex md:grid md:grid-cols-12 md:justify-between items-center px-4 md:px-8 mx-auto py-7"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -64,7 +64,6 @@ async function Navbar() {
       </motion.div>
       {/* This is the second part of the nav it takes upto 6 columns. Built as a separate component for readability */}
       {/* <NavbarLinks /> */}
-
       <motion.div className="w-[80%] relative md:translate-x-10 mx-auto col-span-6 md:flex items-center justify-center hidden">
         <SearchBar />
       </motion.div>
@@ -107,7 +106,7 @@ async function Navbar() {
           </>
         )}
       </motion.div>
-    </motion.nav>
+    </motion.nav>)
   );
 }
 

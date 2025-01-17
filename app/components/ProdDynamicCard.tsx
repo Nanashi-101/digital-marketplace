@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/carousel";
 import React, { useReducer } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 interface IAprops {
   id: string;

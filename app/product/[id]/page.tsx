@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/carousel";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type JSONContent } from "@tiptap/react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { unstable_noStore as noStore } from "next/cache";
 
 async function getProduct(id: string) {
