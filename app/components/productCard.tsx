@@ -11,7 +11,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { categoryTypes } from "@prisma/client";
 import { SquareArrowOutUpRight } from "lucide-react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 interface IAppProps {
@@ -34,7 +34,7 @@ export function ProductCard({
   category,
 }: IAppProps) {
   return (
-    <div className="rounded-lg shadow-lg p-2 dark:border ">
+    (<div className="rounded-lg shadow-lg p-2 dark:border ">
       <Carousel
         className="w-full mx-auto"
         opts={{
@@ -47,12 +47,13 @@ export function ProductCard({
               <div className="h-[230px] relative">
                 <Image
                   src={image}
-                  layout="fill"
-                  objectFit="cover"
                   className="rounded-lg"
                   alt="product"
+                  fill
                   sizes="100vw"
-                />
+                  style={{
+                    objectFit: "cover"
+                  }} />
               </div>
             </CarouselItem>
           ))}
@@ -70,7 +71,6 @@ export function ProductCard({
       <p className="text-gray-600 text-sm mt-2 line-clamp-2">
         {smallDescription}
       </p>
-
       <Button
         asChild
         className="w-[90%] mx-auto flex items-center justify-center mt-5 mb-4 transition-all ease-in hover:scale-105 hover:drop-shadow-xl"
@@ -79,7 +79,7 @@ export function ProductCard({
           Learn more <SquareArrowOutUpRight size={20} className="ml-2"/>
         </Link>
       </Button>
-    </div>
+    </div>)
   );
 }
 

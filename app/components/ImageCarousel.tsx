@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import React from 'react'
 import Autoplay from "embla-carousel-autoplay";
 import { $Enums } from "@prisma/client";
@@ -27,7 +27,7 @@ function ImageCarousel({data}: {data: IAprops}) {
     Autoplay({ delay: 3000,})
   )
   return (
-    <Carousel
+    (<Carousel
       className="w-full mx-auto rounded-lg"
       opts={{
         loop: true,
@@ -41,17 +41,19 @@ function ImageCarousel({data}: {data: IAprops}) {
               <div className="h-[250px] relative">
                 <Image
                   src={image}
-                  layout="fill"
-                  objectFit="cover"
                   className="rounded-lg"
                   alt="product"
-                />
+                  fill
+                  sizes="100vw"
+                  style={{
+                    objectFit: "cover"
+                  }} />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </div>
-    </Carousel>
+    </Carousel>)
   );
 }
 

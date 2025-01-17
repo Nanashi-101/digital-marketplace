@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/carousel";
 import React, { useReducer } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 interface IAprops {
   id: string;
@@ -55,7 +55,7 @@ function DynamicProductCard(data: IAprops) {
 function DynamicProductCardMobileScreen({ prodData }: { prodData: IAprops }) {
   const plugin = React.useRef(Autoplay({ delay: 3000 }));
   return (
-    <div>
+    (<div>
       <Card className="shadow-2xl p-2 border dark:shadow-2xl dark:shadow-[#F97316] dark:drop-shadow-xl rounded-sm">
         <CardContent className="grid grid-cols-1 grid-rows-3 items-center justify-center gap-1 py-10 px-1">
           <div className="w-[350px] rounded-lg flex flex-col items-center justify-center mx-auto">
@@ -72,11 +72,13 @@ function DynamicProductCardMobileScreen({ prodData }: { prodData: IAprops }) {
                     <div className="h-[250px] relative">
                       <Image
                         src={image}
-                        layout="fill"
-                        objectFit="cover"
                         className="rounded-lg"
                         alt="product"
-                      />
+                        fill
+                        sizes="100vw"
+                        style={{
+                          objectFit: "cover"
+                        }} />
                     </div>
                   </CarouselItem>
                 ))}
@@ -113,7 +115,7 @@ function DynamicProductCardMobileScreen({ prodData }: { prodData: IAprops }) {
           </motion.div>
         </CardContent>
       </Card>
-    </div>
+    </div>)
   );
 }
 

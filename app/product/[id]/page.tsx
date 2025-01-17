@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/carousel";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type JSONContent } from "@tiptap/react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { unstable_noStore as noStore } from "next/cache";
 
 async function getProduct(id: string) {
@@ -48,7 +48,7 @@ async function ProductIdPage(props: { params: Promise<{ id: string }> }) {
   noStore();
   const data = await getProduct(params.id);
   return (
-    <section className="max-w-7xl mx-auto px-4 lg:px-8 lg:grid lg:grid-row-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16 mb-16">
+    (<section className="max-w-7xl mx-auto px-4 lg:px-8 lg:grid lg:grid-row-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16 mb-16">
       <Carousel
         className="lg:row-end-1 lg:col-span-4"
         opts={{
@@ -62,12 +62,13 @@ async function ProductIdPage(props: { params: Promise<{ id: string }> }) {
                 <Image
                   src={image as string}
                   alt={data.name}
-                  layout="fill"
-                  objectFit="cover"
                   className="shadow-xl rounded-lg w-full h-full"
-                  sizes="100vw"
                   quality={100}
-                />
+                  fill
+                  sizes="100vw"
+                  style={{
+                    objectFit: "cover"
+                  }} />
               </div>
             </CarouselItem>
           ))}
@@ -114,7 +115,7 @@ async function ProductIdPage(props: { params: Promise<{ id: string }> }) {
           </ScrollArea>
         </div>
       </div>
-    </section>
+    </section>)
   );
 }
 

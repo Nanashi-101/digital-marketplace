@@ -6,7 +6,7 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import * as motion from "motion/react-client";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from "next/link";
 import prisma from "../lib/db";
 import MobileNav from "./mobileNav";
@@ -40,11 +40,11 @@ async function Navbar() {
   return (
     // This is gonna be a new way to create a navbar for me in the future
     (<motion.nav
-      className="relative xl:max-w-[100rem] max-w-7xl w-full flex md:grid md:grid-cols-12 md:justify-between items-center px-4 md:px-8 mx-auto py-7"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
-    >
+        className="relative xl:max-w-[100rem] max-w-7xl w-full flex md:grid md:grid-cols-12 md:justify-between items-center px-4 md:px-8 mx-auto py-7"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+      >
       {/* This is the first part of the nav it takes upto 3 columns */}
       <motion.div
         className="md:col-span-3"
@@ -53,7 +53,15 @@ async function Navbar() {
         transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
       >
         <Link href="/" className="flex items-center justify-center gap-2">
-          <Image src={logo} alt="Chroma UI Logo" width={70} height={70} />
+          <Image
+            src={logo}
+            alt="Chroma UI Logo"
+            width={70}
+            height={70}
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
           <h1 className="text-xl sm:text-3xl font-bold roboto tracking-tight">
             Chroma
             <span className="text-2xl sm:text-4xl text-[#F97316] font-bold roboto">
