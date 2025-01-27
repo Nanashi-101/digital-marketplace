@@ -15,9 +15,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
+import { useAnimate, useAnimationControls, useInView } from "framer-motion";
 
 interface IAprops {
   id: string;
@@ -182,8 +183,38 @@ function DynamicProductCardMobileScreen({ prodData }: { prodData: IAprops }) {
 }
 
 function DynamicProductCardAllScreen({ prodData }: { prodData: IAprops }) {
+  const control = useAnimationControls();
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
+  useEffect(() => {
+    console.log(" Is in view -> ", inView);
+    control.start("visible");
+  }, [inView, control]);
+
+  const cardAnimation = {
+    hidden: { x: -200, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.4,
+        duration: 1.1,
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+  };
+
+  const handleAnimation = () => {
+    control.start("hidden");
+    control.start("visible");
+  };
+
   const handleNext = () => {
     const elem = document.getElementById("next-btn");
+    handleAnimation();
     if (elem) {
       elem.click();
     }
@@ -191,6 +222,7 @@ function DynamicProductCardAllScreen({ prodData }: { prodData: IAprops }) {
 
   const handlePrev = () => {
     const elem = document.getElementById("prev-btn");
+    handleAnimation();
     if (elem) {
       elem.click();
     }
@@ -199,19 +231,20 @@ function DynamicProductCardAllScreen({ prodData }: { prodData: IAprops }) {
     <>
       <motion.div
         className="bg-[#ff8e47] absolute rounded-full -left-[8rem] top-10 w-[15.75rem] h-[15.75rem] blur-[4rem] dark:hidden"
-        initial={{ x: -200 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 1.1, delay: 0.4 }}
+        variants={cardAnimation}
+        initial="hidden"
+        animate="visible"
       />
       <Card
         className={`relative shadow-2xl p-2 border dark:shadow-2xl dark:shadow-[#F97316] dark:drop-shadow-xl rounded-sm`}
       >
         <CardContent className="grid grid-cols-3 items-center justify-center gap-5 py-10 px-1">
           <motion.div
+            ref={ref}
             className="col-span-1 w-[350px] rounded-lg flex flex-col items-center justify-center mx-auto gap-3"
-            initial={{ x: -200 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
+            variants={cardAnimation}
+            initial="hidden"
+            animate={control}
           >
             <ImageCarousel data={prodData} />
             <motion.div
