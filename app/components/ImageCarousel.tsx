@@ -34,7 +34,7 @@ function ImageCarousel({data}: {data: IAprops}) {
       }}
       plugins={[plugin.current]}
     >
-      <div className="absolute w-full -left-48 -top-32 shadow-xl rounded-lg dark:drop-shadow-2xl cursor-grab bg-[#F97316]">
+      <div className="absolute w-full -left-48 -top-24 shadow-xl rounded-lg dark:drop-shadow-2xl cursor-grab bg-[#F97316]">
         <CarouselContent className="rounded-lg">
           {data.images.map((image, index) => (
             <CarouselItem key={index} className="rounded-lg">

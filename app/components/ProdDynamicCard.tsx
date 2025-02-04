@@ -3,11 +3,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import * as motion from "motion/react-client";
-import prisma from "../lib/db";
-import ImageCarousel from "./ImageCarousel";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { $Enums } from "@prisma/client";
 import {
   Carousel,
   CarouselContent,
@@ -15,10 +10,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import { $Enums } from "@prisma/client";
 import Autoplay from "embla-carousel-autoplay";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import * as motion from "motion/react-client";
 import Image from "next/image";
-import { useAnimate, useAnimationControls, useInView } from "framer-motion";
+import React from "react";
+import ImageCarousel from "./ImageCarousel";
 
 interface IAprops {
   id: string;
@@ -183,15 +181,6 @@ function DynamicProductCardMobileScreen({ prodData }: { prodData: IAprops }) {
 }
 
 function DynamicProductCardAllScreen({ prodData }: { prodData: IAprops }) {
-  const control = useAnimationControls();
-  const ref = useRef(null);
-  const inView = useInView(ref);
-
-  useEffect(() => {
-    console.log(" Is in view -> ", inView);
-    control.start("visible");
-  }, [inView, control]);
-
   const cardAnimation = {
     hidden: { x: -200, opacity: 0 },
     visible: {
@@ -202,19 +191,12 @@ function DynamicProductCardAllScreen({ prodData }: { prodData: IAprops }) {
         duration: 1.1,
         type: "spring",
         stiffness: 100,
-        damping: 10,
       },
     },
   };
 
-  const handleAnimation = () => {
-    control.start("hidden");
-    control.start("visible");
-  };
-
   const handleNext = () => {
     const elem = document.getElementById("next-btn");
-    handleAnimation();
     if (elem) {
       elem.click();
     }
@@ -222,7 +204,6 @@ function DynamicProductCardAllScreen({ prodData }: { prodData: IAprops }) {
 
   const handlePrev = () => {
     const elem = document.getElementById("prev-btn");
-    handleAnimation();
     if (elem) {
       elem.click();
     }
@@ -240,19 +221,18 @@ function DynamicProductCardAllScreen({ prodData }: { prodData: IAprops }) {
       >
         <CardContent className="grid grid-cols-3 items-center justify-center gap-5 py-10 px-1">
           <motion.div
-            ref={ref}
-            className="col-span-1 w-[350px] rounded-lg flex flex-col items-center justify-center mx-auto gap-3"
+            className="col-span-1 w-[330px] rounded-lg flex flex-col items-center justify-center mx-auto gap-3"
             variants={cardAnimation}
             initial="hidden"
-            animate={control}
+            animate="visible"
           >
             <ImageCarousel data={prodData} />
-            <motion.div
+            {/* <motion.div
               className="absolute -left-[3rem] top-[18.5rem] w-[100px] h-2 bg-[#F97316] rounded-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.1, delay: 1.5 }}
-            />
+            /> */}
           </motion.div>
           <motion.div
             className="flex flex-col gap-8 col-span-2"
@@ -260,17 +240,17 @@ function DynamicProductCardAllScreen({ prodData }: { prodData: IAprops }) {
             animate={{ x: 0 }}
             transition={{ duration: 1.1, delay: 0.4, type: "spring" }}
           >
-            <h1 className="text-5xl font-extrabold text-primary">
+            <h1 className="text-6xl font-extrabold text-primary">
               {prodData.name}
             </h1>
             <div className="flex uppercase items-center justify-start gap-5">
               <div className="w-[5px] h-[30px] bg-[#F97316] rounded-lg" />
-              <p className="text-2xl font-bold">
+              <p className="text-3xl font-bold">
                 {prodData.price} {prodData.currency}
               </p>
               <Badge>{prodData.category}</Badge>
             </div>
-            <p className="text-lg line-clamp-3 font-semibold text-muted-foreground dark:text-muted-foreground">
+            <p className="text-xl line-clamp-3 font-semibold text-muted-foreground dark:text-muted-foreground">
               {prodData.smallDescription}
             </p>
           </motion.div>
