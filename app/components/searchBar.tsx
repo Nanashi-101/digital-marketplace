@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
-import { useEffect } from "react";
+import { useActionState, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
 import { GetSearchedProduct, SearchState } from "../actions";
@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 
 function SearchBar() {
   const initialState: SearchState = { message: "", status: undefined };
-  const [state, formAction] = useFormState(GetSearchedProduct, initialState);
+  const [state, formAction] = useActionState(GetSearchedProduct, initialState);
 
   useEffect(() => {
     if (state.status === "success") {
