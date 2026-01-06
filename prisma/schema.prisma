@@ -3,21 +3,19 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id                  String  @id @unique
-  email               String  @unique
+  id                  String    @id @unique
+  email               String    @unique
   firstName           String
   lastName            String
   profileImage        String
-  connectedAccountId  String  @unique
-  stripeConnectLinked Boolean @default(false)
-
-  Products Product[]
+  connectedAccountId  String    @unique
+  stripeConnectLinked Boolean   @default(false)
+  Products            Product[]
 }
 
 model Product {
@@ -30,11 +28,9 @@ model Product {
   images           String[]
   category         categoryTypes
   productFile      String
-
-  createdAt DateTime @default(now())
-
-  User   User   @relation(fields: [userId], references: [id])
-  userId String
+  createdAt        DateTime      @default(now())
+  userId           String
+  User             User          @relation(fields: [userId], references: [id])
 }
 
 enum categoryTypes {
