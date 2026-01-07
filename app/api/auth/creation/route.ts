@@ -4,6 +4,9 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 import { unstable_noStore as noStore } from "next/cache";
 
+export const dynamic = "force-dynamic";
+
+
 // This is a GET request, so we can send user data to our Database
 export async function GET() {
   noStore();
