@@ -82,7 +82,7 @@ npm install
 
 ### 4️⃣ Run the server
 ```bash
-node server/server.js
+npm run dev
 ```
 
 ---
